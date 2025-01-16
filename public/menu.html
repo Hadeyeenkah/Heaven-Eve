@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responsive Menu Layout">
+    <title>Menu Layout</title>
+    <link href="menu.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo" class="logo-img">
+            <span>Heaven & Eve</span>
+        </div>
+        <div class="cart-icon" aria-label="Cart">
+            <img src="images/cart.png" alt="Cart Icon">
+            <span class="cart-count" aria-live="polite">0</span>
+        </div>
+    </header>
+
+   <!-- Cart Popup -->
+<div class="cart-popup" aria-hidden="true">
+    <div class="cart-popup-header">
+      <h2>Your Cart</h2>
+      <button class="close-cart" aria-label="Close Cart">&times;</button>
+    </div>
+  
+    <!-- Cart Body -->
+    <div class="cart-popup-body">
+        <div class="cart-items-list"></div>
+        <div class="cart-checkout-info">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">$0.00</span>
+            </div>
+            <div class="cart-checkout-message">
+                <p>Ready to checkout? Click below to proceed with your purchase.</p>
+            </div>
+            <button class="checkout-button" id="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+    
+    <!-- Checkout Form -->
+    <div class="cart-checkout-form hidden" aria-hidden="true">
+      <h3>Billing and Shipping Information</h3>
+      <form id="checkout-form">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
+  
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+  
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required>
+  
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required>
+  
+        <label for="state">State/Province:</label>
+        <input type="text" id="state" name="state" required>
+  
+        <label for="zip">ZIP/Postal Code:</label>
+        <input type="text" id="zip" name="zip" required>
+  
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" required>
+  
+        <label for="payment-method">Payment Method:</label>
+        <select id="payment-method" name="payment-method" required>
+          <option value="credit-card">Credit Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="bank-transfer">Bank Transfer</option>
+        </select>
+  
+        <button type="submit" id="place-order">Place Order</button>
+      </form>
+    </div>
+  </div>
+    
+
+    <!-- Menu Section -->
+    <section class="menu">
+        <h1 class="menu-title">Our Menu</h1>
+
+        <!-- Categories -->
+        <div class="categories" aria-label="Menu Categories">
+            <button class="category-button active" data-category="all" aria-pressed="true">ALL</button>
+            <button class="category-button" data-category="starters" aria-pressed="false">COFFEE</button>
+            <button class="category-button" data-category="mains" aria-pressed="false">MILKSHAKE</button>
+            <button class="category-button" data-category="desserts" aria-pressed="false">FRUITS & PARFAIT</button>
+            <button class="category-button" data-category="drinks" aria-pressed="false">TEA</button>
+            <button class="category-button" data-category="popsicle" aria-pressed="false">POPSICLE</button>
+        </div>
+
+        <!-- Menu Items -->
+        <div class="menu-items">
+            <!-- Starters -->
+            <article class="menu-item" data-category="starters">
+                <img src="images/starter1.jpg" alt="Garlic Bread">
+                <h3>Espresso</h3>
+                <p>Warm, crispy bread with a garlic butter spread.</p>
+                <p class="price" data-small-price="3500" data-big-price="4500">₦3,500</p>
+                
+                <!-- Size Selection -->
+                <label for="size-starter1">Choose Size:</label>
+                <select id="size-starter1" class="size-select">
+                    <option value="small" selected>Small - ₦3,500</option>
+                    <option value="big">Big - ₦4,500</option>
+                </select>
+                
+                <button class="add-to-cart">Add to Cart</button>
+            </article>
+            
+            
+            <article class="menu-item" data-category="starters">
+                <img src="images/starter2.jpg" alt="Garlic Bread">
+                <h3>Latte Macchiato</h3>
+                <p>Warm, crispy bread with a garlic butter spread.</p>
+                <p class="price" data-small-price="3500" data-big-price="4500">₦3,500</p>
+                
+                <!-- Size Selection -->
+                <label for="size-starter1">Choose Size:</label>
+                <select id="size-starter1" class="size-select">
+                    <option value="small" selected>Small - ₦3,500</option>
+                    <option value="big">Big - ₦4,500</option>
+                </select>
+                
+                <button class="add-to-cart">Add to Cart</button>
+            </article>
+            
+            <article class="menu-item" data-category="starters">
+                <img src="images/dippo.jpg" alt="Garlic Bread">
+                <h3>Doppio</h3>
+                <p>Warm, crispy bread with a garlic butter spread.</p>
+                <p class="price" data-small-price="3500" data-big-price="4500">₦3,500</p>
+                
+                <!-- Size Selection -->
+                <label for="size-starter1">Choose Size:</label>
+                <select id="size-starter1" class="size-select">
+                    <option value="small" selected>Small - ₦3,500</option>
+                    <option value="big">Big - ₦4,500</option>
+                </select>
+                
+                <button class="add-to-cart">Add to Cart</button>
+            </article>
+            <article class="menu-item" data-category="starters">
+                <img src="images/Espresso Macchiato.jpg" alt="Garlic Bread">
+                <h3>Espresso Macchiato</h3>
+                <p>Warm, crispy bread with a garlic butter spread.</p>
+                <p class="price" data-small-price="3500" data-big-price="4500">₦3,500</p>
+                
+                <!-- Size Selection -->
+                <label for="size-starter1">Choose Size:</label>
+                <select id="size-starter1" class="size-select">
+                    <option value="small" selected>Small - ₦3,500</option>
+                    <option value="big">Big - ₦4,500</option>
+                </select>
+                
+                <button class="add-to-cart">Add to Cart</button>
+            </article>
+
+            <!-- Other categories (existing items) -->
+            <article class="menu-item" data-category="starters">
+                <img src="images/Coffee Latte.jpg" alt="Garlic Bread">
+                <h3>Coffee Latte</h3>
+                <p>Warm, crispy bread with a garlic butter spread.</p>
+                <p class="price" data-small-price="3500" data-big-price="4500">₦3,500</p>
+                
+                <!-- Size Selection -->
+                <label for="size-starter1">Choose Size:</label>
+                <select id="size-starter1" class="size-select">
+                    <option value="small" selected>Small - ₦3,500</option>
+                    <option value="big">Big - ₦4,500</option>
+                </select>
+                
+                <button class="add-to-cart">Add to Cart</button>
+            </article>
+            <article class="menu-item" data-category="starters">
+                <img src="images/flatwhite.jpg" alt="Garlic Bread">
+                <h3>Flat White</h3>
+                <p>Warm, crispy bread with a garlic butter spread.</p>
+                <p class="price" data-small-price="3000" data-big-price="4000">₦3,000</p>
+                
+                <!-- Size Selection -->
+                <label for="size-starter1">Choose Size:</label>
+                <select id="size-starter1" class="size-select">
+                    <option value="small" selected>Small - ₦3,000</option>
+                    <option value="big">Big - ₦4,000</option>
+                </select>
+                
+                <button class="add-to-cart">Add to Cart</button>
+            </article>
+            <article class="menu-item" data-category="starters">
+                <img src="images/Cappuccino.jpg" alt="Garlic Bread">
+                <h3>Cappuccino</h3>
+                <p>Warm, crispy bread with a garlic butter spread.</p>
+                <p class="price" data-small-price="3500" data-big-price="4500">₦3,500</p>
+                
+                <!-- Size Selection -->
+                <label for="size-starter1">Choose Size:</label>
+                <select id="size-starter1" class="size-select">
+                    <option value="small" selected>Small - ₦3,500</option>
+                    <option value="big">Big - ₦4,500</option>
+                </select>
+                
+                <button class="add-to-cart">Add to Cart</button>
+            </article>
+            <!-- Milkshakes -->
+<article class="menu-item" data-category="mains">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Banana Milkshake</h3>
+    <p class="price">₦6,500</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="mains">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Oreo Milkshake</h3>
+    <p class="price">₦7,000</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="mains">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Strewberry Milkshake</h3>
+    <p class="price">₦6,500</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="mains">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Eve's Apple Milkshake</h3>
+    <p class="price">₦9,000</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+
+<article class="menu-item" data-category="mains">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Vanilla Milkshake</h3>
+    <p class="price">₦7,000</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="desserts">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Fruits Cup</h3>
+    <p class="price">₦3,500</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+
+<article class="menu-item" data-category="desserts">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Coconut, Grape, Berries, Granola,Yogurt Parfait</h3>
+    <p class="price">₦4,000</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="desserts">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Apple, Banana, Berries,Granola, Yogurt Parfait</h3>
+    <p class="price">₦4,000</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="desserts">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Fruit Salad</h3>
+    <p class="price">₦4,000</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+
+<article class="menu-item" data-category="drinks">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Grape Fruit, Guarantee seed(Energy Tea)</h3>
+    <p class="price">₦4,000</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="drinks">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Peach, Carob and Rose petals (Beauty Tea)</h3>
+    <p class="price">₦4,000</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="drinks">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Sweet Mint and  Fennel (Digest Tea)</h3>
+    <p class="price">₦4,000</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="drinks">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Strawberry Sensation Black Tea</h3>
+    <p class="price">₦4,000</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="drinks">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Fruit and Herb (Infusion detox Tea)</h3>
+    <p class="price">₦4,000</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+
+<article class="menu-item" data-category="popsicle">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Lemon and Lime Twist Black Tea</h3>
+    <p class="price">₦4,000</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="popsicle">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Chocolate Caramel</h3>
+    
+    <p class="price">₦1,500</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="popsicle">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Vanilla, Ice-Cream, Honey</h3>
+    <p></p>
+    <p class="price">₦1,500</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="popsicle">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Banana, Vanilla Ice-Cream, Honey</h3>
+    <p></p>
+    <p class="price">₦1,500</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="popsicle">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Oreo, Honey, Chocolate Ice-Cream</h3>
+    <p></p>
+    <p class="price">₦1,800</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+<article class="menu-item" data-category="popsicle">
+    <img src="images/fruit_parfait2.jpg" alt="Tropical Parfait">
+    <h3>Strawberry Ice-Cream,, Yogurt ,Honey </h3>
+    <p></p>
+    <p class="price">₦1,800</p>
+    <button class="add-to-cart">Add to Cart</button>
+</article>
+
+
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2025 Heaven & Eve. All Rights Reserved.</p>
+    </footer>
+
+    <script src="menu.js"></script>
+</body>
+</html>

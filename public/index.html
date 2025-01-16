@@ -1,117 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heaven and Eve Coffee Shop</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Heaven and Eve Cafe</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="images/logo.png" type="image/png">
 </head>
-
 <body>
-    <header>
-        <nav aria-label="Main Navigation">
-            <img src="images/logo.png" alt="Heaven and Eve Logo" class="logo">
-            <ul class="nav-links">
-                <li><a href="#about" aria-current="page">About Us</a></li>
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="hero">
-            <h1>Welcome to Heaven and Eve Cafe</h1>
-            <p>Your daily dose of freshly brewed perfection</p>
-            <a href="delivery.html" class="btn" id="openModalBtn">Explore Services</a>
+
+    <!-- Navigation Bar -->
+<nav class="navbar">
+    <a href="#" class="logo">
+        <img src="images/logo.png" alt="Cafe Logo">
+    </a>
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="menu.html" class="protected-link">Menu</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact">Track Order</a></li>
+    </ul>
+</nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+        <h1>Welcome to Heaven & Eve Cafe</h1>
+        <p>Your favorite place for delicious coffee and cozy ambiance</p>
+        <a href="menu.html" class="btn">Order Menu</a>
         </div>
-    </header>
-
-    <main>
-        <!-- About Section -->
-        <section id="about" class="about">
+    </section>
+   <!-- About Section -->
+<section class="about" id="about">
+    <div class="about-container">
+        <div class="about-text">
             <h2>About Us</h2>
-            <p>At Heaven and Eve, we believe coffee is more than a beverage; it’s a way of life. Come relax in our cozy ambiance, where every cup tells a story.</p>
-            <img src="images/caf.jpg" alt="Interior view of Heaven and Eve Cafe">
-        </section>
-
-        <!-- Menu Section -->
-        <section id="menu" class="menu">
-            <h2>Our Menu</h2>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <img src="images/coffee.jpg" alt="Cup of Espresso">
-                    <h3>Espresso</h3>
-                    <p>$2.50</p>
-                </div>
-                <div class="menu-item">
-                    <img src="images/coffee.jpg" alt="Latte with beautiful art">
-                    <h3>Cappuccino</h3>
-                    <p>$3.50</p>
-                </div>
+            <p>We are a local cafe serving high-quality coffee, pastries, and snacks with a cozy atmosphere for all ages.</p>
+            <h3>Our Mission</h3>
+            <p>To create a warm and welcoming space where everyone can enjoy great food, drinks, and moments together.</p>
+            <div class="testimonials">
+                <p>"Best coffee in town! I come here every weekend with my friends!" – Jane Doe</p>
+                <p>"The pastries are so delicious, and the ambiance is perfect for work." – John Smith</p>
             </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="contact">
-            <h2>Contact Us</h2>
-            <form aria-label="Contact Form">
-                <label for="name">Your Name</label>
-                <input type="text" id="name" placeholder="Your Name" required>
-
-                <label for="email">Your Email</label>
-                <input type="email" id="email" placeholder="Your Email" required>
-
-                <label for="message">Your Message</label>
-                <textarea id="message" placeholder="Your Message" required></textarea>
-
-                <button type="submit">Send Message</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Heaven and Eve Coffee Shop. All Rights Reserved.</p>
-    </footer>
-
-    <!-- Modal Structure -->
-    <div id="serviceModal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="modalTitle">
-        <div class="modal-content">
-            <button class="close" aria-label="Close Modal">&times;</button>
-            <h2 id="modalTitle">Our Services</h2>
-            <ul>
-                <li><a href="#checkOrders">Check Orders</a></li>
-                <li><a href="#delivery">Delivery</a></li>
-                <li><a href="#trackShipping">Track Shipping</a></li>
-            </ul>
+            <a href="#contact" class="cta-button">Get in Touch</a>
+        </div>
+        <div class="about-image">
+            <img src="images/cafe5.jpeg" alt="Cafe Interior">
         </div>
     </div>
+    <div class="social-links">
+        <a href="#" class="social-icon">Facebook</a>
+        <a href="#" class="social-icon">Instagram</a>
+        <a href="#" class="social-icon">Twitter</a>
+    </div>
+</section>
 
-    <script>
-        // Modal functionality
-        const modal = document.getElementById("serviceModal");
-        const openModalBtn = document.getElementById("openModalBtn");
-        const closeModalBtn = document.querySelector(".modal .close");
 
-        // Open modal
-        openModalBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            modal.setAttribute("aria-hidden", "false");
-            modal.style.display = "block";
-        });
 
-        // Close modal
-        closeModalBtn.addEventListener("click", () => {
-            modal.setAttribute("aria-hidden", "true");
-            modal.style.display = "none";
-        });
+</section>
 
-        // Close modal on Escape key
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && modal.getAttribute("aria-hidden") === "false") {
-                closeModalBtn.click();
-            }
-        });
-    </script>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <h2>Our Menu</h2>
+        <div class="menu-items">
+            <div class="menu-item">
+                <img src="images/coffee.jpg" alt="Coffee">
+                <h3>Coffee</h3>
+                <p>$3.50</p>
+            </div>
+            <div class="menu-item">
+                <img src="images/cake.jpg" alt="Cake">
+                <h3>Cake</h3>
+                <p>$2.00</p>
+            </div>
+            <div class="menu-item">
+                <img src="images/tea.jpg" alt="Tea">
+                <h3>Tea</h3>
+                <p>$2.50</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2>Contact Us</h2>
+            <form action="#">
+                <div class="input-group">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
+                <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Cafe Website. All rights reserved.</p>
+    </footer>
+
+    <!-- Subscription Modal -->
+    <div class="modal" id="subscriptionModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Subscription Required</h2>
+            <p>You need to subscribe to access the Menu. Would you like to subscribe now?</p>
+            <a href="/subscribe" id="subscribeButton">Go to Subscription</a>
+            <button id="cancelButton">Cancel</button>
+        </div>
+    </div>
+    <section id="cart-summary">
+        <h3>Your Cart</h3>
+        <div id="cart-items">
+            <!-- Cart items will appear here -->
+        </div>
+        <p><strong>Total Amount:</strong> <span id="total-amount">0</span> Naira</p>
+        <a href="checkout.html">
+            <button id="checkout-btn" type="button">Checkout</button>
+        </a>
+    </section>
+
 </body>
-
 </html>

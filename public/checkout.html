@@ -1,0 +1,47 @@
+<!-- Checkout Section -->
+<section class="checkout">
+    <h1>Checkout</h1>
+    
+    <!-- Order Summary -->
+    <div class="order-summary">
+        <h2>Order Summary</h2>
+        <ul id="order-items-list">
+            <!-- Dynamically added items will appear here -->
+        </ul>
+        <p><strong>Total:</strong> <span id="total-price">$0.00</span></p>
+    </div>
+
+    <!-- Customer Information Form -->
+    <div class="customer-info" id="customer-info">
+        <h2>Enter Your Information</h2>
+        <form id="checkout-form">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            
+            <label for="address">Shipping Address:</label>
+            <input type="text" id="address" name="address" required><br><br>
+            
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required><br><br>
+            
+            <button type="submit">Submit Information</button>
+        </form>
+    </div>
+
+    <!-- Receipt Section -->
+    <div class="receipt" id="receipt" style="display: none;">
+        <h2>Receipt</h2>
+        <p><strong>Name:</strong> <span id="receipt-name"></span></p>
+        <p><strong>Email:</strong> <span id="receipt-email"></span></p>
+        <p><strong>Shipping Address:</strong> <span id="receipt-address"></span></p>
+        <p><strong>Phone Number:</strong> <span id="receipt-phone"></span></p>
+        <h3>Items Ordered:</h3>
+        <ul id="receipt-items-list"></ul>
+        <p><strong>Total Price:</strong> <span id="receipt-total-price"></span></p>
+    </div>
+
+    <button id="proceed-to-checkout-btn">Proceed to Checkout</button>
+</section>

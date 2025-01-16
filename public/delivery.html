@@ -1,122 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heaven and Eve Coffee Shop</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="images/logo.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping Tabs</title>
+  <link rel="stylesheet" href="delivery.css">
 </head>
-
 <body>
-    <header>
-        <nav aria-label="Main Navigation">
-            <a href="#">
-                <img src="images/logo.png" alt="Heaven and Eve Logo" class="logo">
-            </a>
-            <ul class="nav-links">
-                <li><a href="#about" aria-current="page">About Us</a></li>
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="hero">
-            <h1>Welcome to Heaven and Eve Cafe</h1>
-            <p>Your daily dose of freshly brewed perfection.</p>
-            <a href="delivery.html" class="btn" id="openModalBtn">Explore Services</a>
-        </div>
-    </header>
-
-    <main>
-        <!-- About Section -->
-        <section id="about" class="about">
-            <h2>About Us</h2>
-            <p>
-                At Heaven and Eve, we believe coffee is more than a beverage; it’s a way of life. Relax in our cozy
-                ambiance, where every cup tells a story.
-            </p>
-            <img src="images/cafe.jpg" alt="Interior view of Heaven and Eve Cafe">
-        </section>
-
-        <!-- Menu Section -->
-        <section id="menu" class="menu">
-            <h2>Our Menu</h2>
-            <div class="menu-items">
-                <article class="menu-item">
-                    <img src="images/coffee.jpg" alt="Cup of Espresso">
-                    <h3>Espresso</h3>
-                    <p>$2.50</p>
-                </article>
-                <article class="menu-item">
-                    <img src="images/cappuccino.jpg" alt="Latte with beautiful art">
-                    <h3>Cappuccino</h3>
-                    <p>$3.50</p>
-                </article>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="contact">
-            <h2>Contact Us</h2>
-            <form aria-label="Contact Form">
-                <label for="name">Your Name</label>
-                <input type="text" id="name" name="name" placeholder="Your Name" required>
-
-                <label for="email">Your Email</label>
-                <input type="email" id="email" name="email" placeholder="Your Email" required>
-
-                <label for="message">Your Message</label>
-                <textarea id="message" name="message" placeholder="Your Message" required></textarea>
-
-                <button type="submit">Send Message</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Heaven and Eve Coffee Shop. All Rights Reserved.</p>
-    </footer>
-
-    <!-- Modal Structure -->
-    <div id="serviceModal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="modalTitle">
-        <div class="modal-content">
-            <button class="close" aria-label="Close Modal">&times;</button>
-            <h2 id="modalTitle">Our Services</h2>
-            <ul>
-                <li><a href="pickup.html" target="_blank" rel="noopener noreferrer">Pickup</a></li>
-                <li><a href="delivery.html" target="_blank" rel="noopener noreferrer">Delivery</a></li>
-                <li><a href="shipping.html" target="_blank" rel="noopener noreferrer">Shipping</a></li>
-            </ul>
-        </div>
+  <div class="tab-container">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="pickup">Pickup</button>
+      <button class="tab-btn" data-tab="delivery">Delivery</button>
+      <button class="tab-btn" data-tab="shipping">Shipping</button>
     </div>
+    <div class="tab-content">
+      <div class="tab-panel" id="pickup">
+        <div class="order-tracking">
+          <h4>Track your Order</h4>
+          <input type="text" id="order-id" placeholder="Enter your Order ID" />
+          <button id="search-order">Search Order</button>
+          <p id="order-status">Order Status: Not tracked</p>
+        </div>
+      </div>
 
-    <script>
-        // Modal functionality
-        const modal = document.getElementById("serviceModal");
-        const openModalBtn = document.getElementById("openModalBtn");
-        const closeModalBtn = document.querySelector(".modal .close");
+      <div class="tab-panel hidden" id="delivery">
+        <h3>View delivery items</h3>
+        <p>Delivery options will be shown here.</p>
+      </div>
 
-        // Open modal
-        openModalBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            modal.setAttribute("aria-hidden", "false");
-            modal.style.display = "block";
-        });
+      <div class="tab-panel hidden" id="shipping">
+        <h3>View shippable items</h3>
+        <p>● Shipping rates calculated at checkout</p>
+      </div>
+    </div>
+    <button class="view-menu-btn">View menu</button>
+  </div>
 
-        // Close modal
-        closeModalBtn.addEventListener("click", () => {
-            modal.setAttribute("aria-hidden", "true");
-            modal.style.display = "none";
-        });
-
-        // Close modal on Escape key
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && modal.getAttribute("aria-hidden") === "false") {
-                closeModalBtn.click();
-            }
-        });
-    </script>
+  <script src="script.js"></script>
 </body>
-
 </html>

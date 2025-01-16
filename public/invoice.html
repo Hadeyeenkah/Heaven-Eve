@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    header, footer {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+    .invoice-container {
+      display: none;
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-top: 20px;
+      background-color: #f9f9f9;
+    }
+    .btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    .btn-secondary {
+      background-color: #6c757d;
+    }
+    .btn-secondary:hover {
+      background-color: #565e64;
+    }
+    .text-right {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Order Summary</h1>
+  </header>
+
+  <table id="order-summary">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Product 1</td>
+        <td>2</td>
+        <td>$10</td>
+      </tr>
+      <tr>
+        <td>Product 2</td>
+        <td>1</td>
+        <td>$15</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="2" class="text-right">Total</th>
+        <th>$35</th>
+      </tr>
+    </tfoot>
+  </table>
+
+  <button type="button" id="generate-invoice" class="btn" onclick="generateInvoice()">Generate Invoice</button>
+  <button type="button" class="btn btn-secondary" onclick="resetInvoice()">Reset</button>
+
+  <div class="invoice-container" id="invoice-container">
+    <h2>Invoice</h2>
+    <p><strong>Date:</strong> <span id="invoice-date"></span></p>
+    <p><strong>Invoice Number:</strong> <span id="invoice-number"></span></p>
+    <div id="invoice-content"></div>
+    <button class="btn" onclick="printInvoice()">Print Invoice</button>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Invoice Generator. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Function to generate the invoice
+    function generateInvoice() {
+      const orderTable = document.getElementById('order-summary');
+      const invoiceContainer = document.getElementById('invoice-container');
+      const invoiceContent = document.getElementById('invoice-content');
+      const invoiceDate = document.getElementById('invoice-date');
+      const invoiceNumber = document.getElementById('invoice-number');
+
+      // Generate current date and random invoice number
+      const today = new Date();
+      invoiceDate.textContent = today.toLocaleDateString();
+      invoiceNumber.textContent = `INV-${Math.floor(Math.random() * 1000000)}`;
+
+      // Clone the table from the order summary
+      const clonedTable = orderTable.cloneNode(true);
+
+      // Clear previous invoice content
+      invoiceContent.innerHTML = '';
+
+      // Append cloned table to the invoice content
+      invoiceContent.appendChild(clonedTable);
+
+      // Show the invoice container
+      invoiceContainer.style.display = 'block';
+    }
+
+    // Function to print the invoice
+    function printInvoice() {
+      const printContent = document.getElementById('invoice-container').innerHTML;
+      const printWindow = window.open('', '_blank', 'width=800,height=600');
+      printWindow.document.write('<html><head><title>Invoice</title></head><body>');
+      printWindow.document.write(printContent);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.print();
+    }
+
+    // Function to reset the invoice
+    function resetInvoice() {
+      document.getElementById('invoice-container').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
