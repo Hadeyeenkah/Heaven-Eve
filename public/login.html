@@ -3,63 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subscribe | Heaven and Eve Coffee Shop</title>
-    <link rel="stylesheet" href="subscription.css">
+    <title>Coffee Shop - Login & Register</title>
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <img src="images/logo.png" alt="Heaven and Eve Logo" class="logo">
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html" class="active">Subscribe</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section id="subscribe">
-            <h2>Subscribe to Access the Dashboard</h2>
-            <form id="subscription-form">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Choose a username" required>
-
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-
-                <label for="payment">Payment Information</label>
-                <input type="text" id="payment" name="payment" placeholder="Enter your payment details" required>
-
-                <button type="submit">Subscribe Now</button>
-            </form>
-        </section>
-    </main>
-
-    <!-- Subscription Modal (First-Time User) -->
-    <div id="subscribe-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('subscribe-modal')">&times;</span>
-            <h2>Subscribe to Access the Dashboard</h2>
-            <button onclick="subscribe()">Subscribe Now</button>
+    <div class="auth-container">
+        <div class="auth-form">
+            <h2 class="auth-title" id="form-title">Login</h2>
         </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form-content">
+            <div class="input-group">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" name="email" required placeholder="Enter your email" />
+            </div>
+            <div class="input-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" name="password" required placeholder="Enter your password" />
+                <button type="button" class="toggle-password" onclick="togglePassword('login-password')">👁️</button>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+
+        <div class="switch-link">
+            <p>Don't have an account? <a href="registration.html" id="switch-to-register">Register</a></p>
+        </div>
+
+        <!-- Registration Form (Hidden initially) -->
+        <form id="register-form" class="auth-form-content hidden">
+            <div class="input-group">
+                <label for="register-username">Full Name</label>
+                <input type="text" id="register-username" name="name" required placeholder="Enter your full name" />
+            </div>
+            <div class="input-group">
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" name="email" required placeholder="Enter your email" />
+            </div>
+            <div class="input-group">
+                <label for="register-phone">Phone Number</label>  <!-- Added phone number field -->
+                <input type="tel" id="register-phone" name="phone" required placeholder="Enter your phone number" />
+            </div>
+            <div class="input-group">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" name="password" required placeholder="Enter a password" />
+                <button type="button" class="toggle-password" onclick="togglePassword('register-password')">👁️</button>
+            </div>
+            <div class="input-group">
+                <label for="register-confirm-password">Confirm Password</label>
+                <input type="password" id="register-confirm-password" name="confirm_password" required placeholder="Confirm your password" />
+                <button type="button" class="toggle-password" onclick="togglePassword('register-confirm-password')">👁️</button>
+            </div>
+            <button type="submit" class="btn">Register</button>
+            <div class="switch-link">
+                <p>Already have an account? <a href="login.html" id="switch-to-login">Login</a></p>
+            </div>
+        </form>
     </div>
 
-    <!-- Login Modal (After Subscription) -->
-    <div id="login-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('login-modal')">&times;</span>
-            <h2>Login</h2>
-            <input type="text" id="login-username" placeholder="Username" required>
-            <input type="password" id="login-password" placeholder="Password" required>
-            <button onclick="login()">Login</button>
-        </div>
-    </div>
+    <script>
+        function togglePassword(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            passwordField.type = passwordField.type === "password" ? "text" : "password";
+        }
+    </script>
 
-    <footer>
-        <p>&copy; 2025 Heaven and Eve Coffee Shop. All Rights Reserved.</p>
-    </footer>
-
-    <script src="login.html"></script>
+    <script src="login.js"></script>
 </body>
 </html>

@@ -87,8 +87,9 @@ header {
 }
 
 .cart-popup-body {
-    max-height: 300px;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .cart-items-list {
@@ -194,6 +195,76 @@ header {
 .cart-checkout-form button:hover {
     background-color: #45a049;
 }
+  /* Style for the checkout button */
+  #show-form-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #ff6600;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#show-form-btn:hover {
+    background: #cc5500;
+}
+
+/* Style the form inputs */
+.cart-checkout-form-container input,
+.cart-checkout-form-container textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.cart-popup-body,
+.cart-checkout-form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* Checkout Form - Ensure it's not at the top */
+.cart-checkout-form-container {
+    display: none; /* Hide form initially */
+    margin-top: 20px; /* Space it from the checkout info section */
+}
+/* When the cart is expanded, show the form */
+.cart-popup.show-checkout-form .cart-checkout-form-container {
+    display: block;
+}
+.cart-popup-body.hide {
+    display: none; /* Hide cart body when proceeding to checkout */
+}
+
+.cart-checkout-form-container.show {
+    display: block;
+    transform: translateY(0); /* Slide up */
+    opacity: 1;
+}
+
+
+/* Submit Order button */
+.checkout-button {
+    width: 100%;
+    padding: 10px;
+    background: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.checkout-button:hover {
+    background: #218838;
+}
 
 /* Mobile Compatibility */
 @media (max-width: 768px) {
@@ -203,6 +274,10 @@ header {
 
     .cart-checkout-info {
         align-items: center;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 
     .cart-checkout-form input, .cart-checkout-form select, .cart-checkout-form button {
@@ -283,7 +358,28 @@ header {
 }
 
 .cart-checkout-form {
-    margin-top: 20px;
+    max-height: 60vh; /* Reduced height to fit within smaller containers */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
+}
+.cart-checkout-form form {
+    display: flex;
+    flex-direction: column; /* Ensure proper stacking of form fields */
+    gap: 1rem; /* Add spacing between form elements */
+}
+.cart-checkout-form::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+.cart-checkout-form::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
 }
 
 .cart-checkout-form h3 {
@@ -318,9 +414,10 @@ header {
 }
 
 .cart-checkout-form button {
-    background: #007bff;
+    align-self: center; /* Center-align the "Place Order" button */
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
     color: #fff;
-    padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -341,31 +438,85 @@ header {
 
 .menu-title {
     font-size: 2.5rem;
-    color: #6b3707;
+    color: #3b1f04;
     margin-bottom: 20px;
 }
 
 /* Categories */
+/* Container styling */
+/* Basic styles for categories section */
 .categories {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: 0 auto;
 }
 
+/* Style for category buttons */
 .category-button {
-    background-color: #444;
-    color: #fff;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    outline: none;
+}
+
+.category-button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
 }
 
 .category-button:hover {
-    background-color: #555;
+    background-color: #5c2605;
+    color: #844106;
+    transform: scale(1.05);
 }
+
+/* For smaller screens (mobile-first approach) */
+@media (max-width: 767px) {
+    .category-button {
+        font-size: 0.9rem;
+        padding: 0.4rem 1rem;
+    }
+
+    .categories {
+        gap: 0.8rem;
+    }
+}
+
+/* For larger screens (tablets and above) */
+@media (min-width: 768px) {
+    .category-button {
+        font-size: 1rem;
+        padding: 0.6rem 1.5rem;
+    }
+}
+
+/* For very large screens (desktops) */
+@media (min-width: 1200px) {
+    .category-button {
+        font-size: 1.1rem;
+        padding: 0.7rem 2rem;
+    }
+
+    .categories {
+        gap: 1.5rem;
+    }
+}
+
+
 
 /* Menu Items */
 .menu-items {
@@ -480,8 +631,274 @@ footer {
         transform: translateY(0);
     }
 }
+.hidden {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.visible {
+    display: block;
+    opacity: 1;
+}
+
+.slide-out {
+    animation: slide-out 0.5s forwards;
+}
+
+@keyframes slide-out {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.slide-in {
+    animation: slide-in 0.5s forwards;
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+.cart-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    overflow: hidden;
+  }
+  
+  .cart-popup-body,
+  .cart-checkout-form,
+  .credit-card-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  /* Initially Hidden State for the Credit Card Info */
+.hidden {
+    display: none;
+  }
+  
+  .cart-checkout-form {
+    transform: translateX(100%);
+  }
+  .cart-checkout-form-container {
+    display: none; /* Hidden by default */
+    opacity: 0; /* Set opacity to 0 initially */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect */
+}
+
+.cart-checkout-form-container.show {
+    display: block; /* Ensure form becomes visible */
+    opacity: 1; /* Fade in */
+}
 
 
+@keyframes slideInAnimation {
+    from {
+        transform: translateX(100%); /* Slide from right */
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+  
+  .credit-card-info {
+    transform: translateX(100%);
+  }
+  /* Form and button styles */
+#place-order {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  /* Mobile-specific Styles */
+  @media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem; /* Slightly larger gap for better spacing */
+    }
 
+    .cart-icon {
+        align-self: flex-end;
+        margin-top: 1rem; /* Adds spacing from the top */
+    }
 
+    .categories {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem; /* Adding gap between items */
+    }
+
+    .category-button {
+        max-width: 100%;
+        padding: 0.5rem 1rem; /* Ensure it's still clickable with padding */
+    }
+
+    .menu-items {
+        display: grid;
+        grid-template-columns: 1fr; /* Single column for mobile */
+        gap: 1.5rem; /* Add spacing between items */
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-title {
+        font-size: 1.75rem; /* Increase font size for better readability */
+        text-align: center; /* Center align title */
+    }
+
+    .category-button {
+        font-size: 1rem; /* Ensure better legibility */
+        padding: 0.5rem 1.5rem; /* More clickable area */
+    }
+
+    .menu-item {
+        padding: 1rem; /* Increase padding for more clickable area */
+        margin-bottom: 1rem; /* Ensure space between items */
+    }
+
+    .menu-item h3 {
+        font-size: 1.25rem; /* Increase heading size */
+        font-weight: bold; /* Make it stand out more */
+    }
+
+    .menu-item p {
+        font-size: 1rem; /* Slightly larger font for better readability */
+        color: #555; /* Slightly darker color for readability */
+    }
+}
+/* General styles for the cart-order-confirmation */
+.cart-order-confirmation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  /* Hidden state */
+  .hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .hidden {
+  display: none;
+}
+
+.cart-checkout-form {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+  background: #f9f9f9;
+}
+
+  
+  /* Visible state */
+  .cart-order-confirmation.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Heading styles */
+  .cart-order-confirmation h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  /* Paragraph styles */
+  .cart-order-confirmation p {
+    font-size: 1rem;
+    color: #555;
+    margin: 10px 0;
+  }
+  
+  /* Order ID span */
+  .cart-order-confirmation #order-id {
+    font-weight: bold;
+    color: #007BFF;
+  }
+  
+  /* Close button */
+  .close-confirmation {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .close-confirmation:hover {
+    background-color: #0056b3;
+  }
+  
+  .close-confirmation:focus {
+    outline: 2px solid #0056b3;
+  }
+  
+  /* Overlay background (optional, for modal effect) */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .overlay.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  /* Hide the checkout form initially */
+.cart-checkout-form {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    opacity: 0;
+}
+
+/* Show form when active */
+.cart-checkout-form.active {
+    max-height: 500px; /* Adjust based on your form height */
+    opacity: 1;
+}
 

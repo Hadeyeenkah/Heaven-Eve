@@ -1,0 +1,46 @@
+<!-- order-confirmation.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="confirmation.css"> <!-- Optional: Link to your CSS file -->
+</head>
+<body>
+    <div id="order-confirmation">
+        <h1>Order Confirmation</h1>
+        <p>Order ID: <span id="order-id"></span></p>
+        <p>Total Paid: $<span id="total-paid"></span></p>
+        <p>Estimated Delivery: <span id="delivery-time"></span></p>
+        <ul id="order-items"></ul>
+    </div>
+
+    <script>
+        // Example function to simulate fetching order details from backend
+        async function fetchOrderDetails() {
+            try {
+                const response = await fetch('/api/get-order-details'); // Adjust endpoint as needed
+                const orderDetails = await response.json();
+                
+                // Populate the page with order details
+                document.getElementById("order-id").textContent = orderDetails.id;
+                document.getElementById("total-paid").textContent = orderDetails.total;
+                document.getElementById("delivery-time").textContent = orderDetails.deliveryTime;
+
+                const itemsList = document.getElementById("order-items");
+                orderDetails.items.forEach(item => {
+                    const li = document.createElement("li");
+                    li.textContent = `${item.name} x ${item.quantity}`;
+                    itemsList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Error fetching order details:', error);
+            }
+        }
+
+        // Call the fetch function when the page loads
+        window.onload = fetchOrderDetails;
+    </script>
+</body>
+</html>

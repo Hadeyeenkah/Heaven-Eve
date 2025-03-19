@@ -4,13 +4,23 @@
   "description": "A coffee shop web app",
   "main": "server.js",
   "dependencies": {
+    "axios": "^1.7.9",
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
     "express": "^4.21.2",
-    "mongoose": "^7.8.3",
-    "stripe": "^17.5.0"
+    "express-async-handler": "^1.2.0",
+    "express-session": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.13.0",
+    "mongoose": "^7.8.6",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.10.0",
+    "paystack": "^2.0.1",
+    "paystack-node": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

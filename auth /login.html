@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Shop - Login & Register</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="auth-container">
+        <!-- Logo added here -->
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Coffee Shop Logo" class="logo">
+        </div>
+
+        <div class="auth-form">
+            <h2 class="auth-title" id="form-title">Login</h2>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form-content">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email" />
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter your password" />
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+
+            <div class="switch-link">
+                <p>Don't have an account? <a href="#" id="switch-to-register">Register</a></p>
+            </div>
+
+            <!-- Registration Form (Hidden initially) -->
+            <form id="register-form" class="auth-form-content hidden">
+                <div class="input-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" name="name" required placeholder="Enter your full name" />
+                </div>
+                <div class="input-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" name="email" required placeholder="Enter your email" />
+                </div>
+                <div class="input-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" name="password" required placeholder="Enter a password" />
+                </div>
+                <button type="submit" class="btn">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

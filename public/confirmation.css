@@ -1,0 +1,91 @@
+/* styles.css */
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* Order Confirmation Container */
+#order-confirmation {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Title Styling */
+#order-confirmation h1 {
+    font-size: 2rem;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+/* Paragraph Styling */
+#order-confirmation p {
+    font-size: 1.1rem;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+#order-confirmation p span {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+/* Order Items List */
+#order-items {
+    list-style-type: none;
+    margin-top: 20px;
+    padding: 0;
+}
+
+#order-items li {
+    font-size: 1rem;
+    margin: 5px 0;
+    padding: 8px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#order-items li:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    #order-confirmation {
+        padding: 15px;
+    }
+
+    #order-confirmation h1 {
+        font-size: 1.8rem;
+    }
+
+    #order-confirmation p {
+        font-size: 1rem;
+    }
+}

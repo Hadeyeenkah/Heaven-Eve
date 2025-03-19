@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Orders</title>
+  <link rel="stylesheet" href="/styles/admin.css"> <!-- Link to external CSS file -->
+</head>
+<body>
+  <div class="container">
+    <h1>All Orders</h1>
+
+    <!-- Table to display orders -->
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Items</th>
+          <th>Payment Method</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% orders.forEach(order => { %>
+          <tr>
+            <td><%= order._id %></td>
+            <td><%= order.name %></td>
+            <td><%= order.email %></td>
+            <td><%= order.items.join(', ') %></td>
+            <td><%= order.paymentMethod %></td>
+            <td>
+              <select class="status-select" data-order-id="<%= order._id %>">
+                <option value="Pending" <%= order.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                <option value="Shipped" <%= order.status === 'Shipped' ? 'selected' : '' %>>Shipped</option>
+                <option value="Delivered" <%= order.status === 'Delivered' ? 'selected' : '' %>>Delivered</option>
+              </select>
+            </td>
+            <td><button class="delete-btn" data-order-id="<%= order._id %>">Delete</button></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="/scripts/admin.js"></script> <!-- Link to external JS file -->
+</body>
+</html>

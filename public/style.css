@@ -7,172 +7,264 @@
 
 /* Body */
 body {
-    background-color: rgb(61, 14, 14);
-    color: #ede7e7;
-    padding-top: 20px;
+    min-height: 100vh;
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
 }
 
+/* Navbar styles */
+/* General navbar styling */
+/* General navbar styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #4b2e2a; /* Coffee color background */
+}
 
+/* Styling for the menu button */
+.menu-toggle {
+    background-color: #4b2e2a; /* Coffee color */
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    display: inline-flex; /* Ensure it aligns well */
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+/* Remove outline when focused */
+.menu-toggle:focus {
+    outline: none;
+}
+
+/* The logo inside the button */
+
+/* Optional: Hover effect for the button */
+.menu-toggle:hover {
+    transform: scale(1.05);
+}
+
+/* Navbar background adjustments */
 nav {
+    background-color: transparent;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    width: 100%;
+    list-style: none;
     display: flex;
-    z-index: 100; /* Ensure the nav is above the hero */
-    align-items: center; /* Vertically center items in the nav */
-    justify-content: space-between; /* Space out the logo and menu */
-    background-color: transparent; /* No background for the nav */
-    padding: 1rem 2rem; /* Adjust padding for some spacing */
-    box-shadow: none; /* No shadow */
-    border: none; /* No border */
-    position: absolute; /* Position nav on top of the .hero section */
-    top: 0; /* Align nav to the top */
-    left: 0; /* Align nav to the left */
-    width: 50%; /* Make nav span the full width of the hero section */
+    justify-content: flex-end;
+    align-items: center;
 }
 
-
-nav .logo img {
-    height: auto; /* Adjust size to fit nicely */
-    width: 50%;
+nav li {
+    height: 50px;
 }
 
-.nav-links {
-    display: flex;
-    gap: 1rem; /* Space between links */
-    
-}
-
-.nav-links li {
-    list-style-type: none;
-}
-
-.nav-links a {
+nav a {
+    padding: 0 30px;
     text-decoration: none;
-    font-size: 1rem;
-    color: #333; /* Neutral color for text */
-    font-weight: bold;
-    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    color: black;
+    transition: background-color 0.3s ease;
 }
 
-.nav-links a:hover {
-    color: #ff6347; /* Accent color on hover */
-    border-bottom: 2px solid #ff6347;
+nav a:hover {
+    background-color: #f0f0f0;
 }
 
-.protected-link {
-    font-style: italic;
-    color: #ff6347; /* Special color for protected links */
+nav li:first-child {
+    margin-right: auto;
 }
 
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        gap: 1rem;
-        margin-top: 1rem;
-    }
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 999;
+    background-color: white;
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
+
+.sidebar li {
+    width: 100%;
+}
+
+.sidebar a {
+    width: 100%;
+}
+
+
+
+
 
 /* Hero Section */
 .hero {
     position: relative;
-    height: 90vh; /* Increased height for more impact */
+    height: 90vh;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Parallax effect */
+    background-attachment: fixed;
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 60px; /* Moves the section down from the top */
-    animation: slideBackground 15s infinite; /* 15 seconds cycle for 3 images */
+    padding-top: 60px;
+    animation: slideBackground 15s infinite;
 }
-/* Keyframes for background image slideshow */
-@keyframes slideBackground {
+/* Logo Styling */
+/* Logo Styling */
+.logo-link {
+    position: absolute;
+    top: 1rem; /* Distance from the top of the hero section */
+    left: 1rem; /* Distance from the left side of the hero section */
+    z-index: 10; /* Makes sure the logo is on top of other content */
+}
+
+.logo {
+    width: 80px; /* Adjust this value to make the logo smaller or larger */
+    height: auto; /* Maintains aspect ratio */
+}
+/* Track Your Order Button Styling */
+.track-order-link {
+    position: absolute;
+    top: 1rem; /* Distance from the top of the hero section */
+    right: 1rem; /* Distance from the right side of the hero section */
+    z-index: 10; /* Ensures it's above other content */
+}
+/* Basic button styling */
+.btn {
+    display: inline-block;
+    background-color: #4b2e2a; /* Coffee color */
+    color: white;
+    padding: 20px 50px;
+    border-radius: 25px;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    animation: pulse 1.5s infinite; /* Add pulse animation */
+    position: relative;
+}
+
+/* Button Hover Effect */
+.btn:hover {
+    background-color: #6e4b42; /* Darker shade of the coffee color */
+    transform: scale(1.1); /* Button grows slightly when hovered */
+}
+
+/* Pulse Animation */
+@keyframes pulse {
     0% {
-        background-image: url('images/cafe6.jpeg');
+        transform: scale(1);
+        opacity: 1;
     }
-    33% {
-        background-image: url('images/cafe4.jpeg');
-    }
-    66% {
-        background-image: url('images/cafe3.jpeg');
+    50% {
+        transform: scale(1.1);
+        opacity: 0.9;
     }
     100% {
-        background-image: url('images/cafe6.jpeg'); /* Loop back to the first image */
+        transform: scale(1);
+        opacity: 1;
     }
+}
+
+/* Optional: Focus effect */
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(75, 46, 42, 0.8); /* Soft shadow on focus */
+}
+
+
+
+.track-order-icon {
+    font-size: 50px; /* Adjust size */
+    color: rgb(6, 6, 6);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.track-order-icon:hover {
+    color: #6e4b42; /* Change color on hover */
+}
+
+
+
+
+
+@keyframes slideBackground {
+    0% { background-image: url('images/cafe6.jpeg'); }
+    33% { background-image: url('images/cafe4.jpeg'); }
+    66% { background-image: url('images/cafe3.jpeg'); }
+    100% { background-image: url('images/cafe6.jpeg'); }
 }
 
 /* Hero Content */
 .hero-content {
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.6); /* Adds a darker overlay to text for readability */
+    background-color: rgba(0, 0, 0, 0.6);
     padding: 40px 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Stronger shadow for a floating effect */
-    max-width: 80%; /* Limit content width for better readability on large screens */
-    margin: auto; /* Center the content */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    max-width: 80%;
+    margin: auto;
 }
 
-/* Hero Headline - Animated Text */
 .hero h1 {
-    font-size: 3.5rem; /* Slightly larger headline */
-    font-family: 'Great Vibes', cursive; /* Fancy cursive font */
-    text-transform: capitalize; /* Better readability for cursive fonts */
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Add subtle shadow for better contrast */
+    font-size: 3.5rem;
+    font-family: 'Great Vibes', cursive;
+    text-transform: capitalize;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     font-weight: 700;
     letter-spacing: 2px;
     margin-bottom: 20px;
-    animation: textFade 6s ease-in-out infinite; /* Text fade-in and fade-out */
+    animation: textFade 6s ease-in-out infinite;
 }
 
-/* Keyframes for text animation */
 @keyframes textFade {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    20% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    80% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
+    0%, 100% { opacity: 0; transform: translateY(-20px); }
+    20%, 80% { opacity: 1; transform: translateY(0); }
 }
 
 /* Hero Description */
 .hero p {
-    font-size: 1.4rem; /* Larger text for better readability */
+    font-size: 1.4rem;
     font-family: 'Raleway', sans-serif;
     opacity: 0.8;
     max-width: 80%;
     margin: 20px auto;
 }
 
-/* Button Styling */
 .hero .btn {
     padding: 12px 30px;
     background-color: #481d04;
     color: white;
     text-decoration: none;
     border-radius: 5px;
-    font-size: 1.1rem; /* Slightly larger button text */
+    font-size: 1.1rem;
     font-weight: 600;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .hero .btn:hover {
     background-color: #682d03c9;
-    transform: translateY(-3px); /* Slight hover effect */
+    transform: translateY(-3px);
 }
-
 
 
 /* About Section */
@@ -354,7 +446,82 @@ nav .logo img {
     }
 }
 
-
+ /* Style for the form container */
+form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto; /* Center form */
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style for labels */
+  label {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Style for text inputs and email input */
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box; /* Includes padding in the element's total width/height */
+    transition: border-color 0.3s;
+  }
+  
+  /* Style for the message textarea */
+  textarea {
+    min-height: 150px; /* Minimum height for the textarea */
+    resize: vertical; /* Allow vertical resizing only */
+  }
+  
+  /* Style for the submit button */
+  button[type="submit"] {
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  /* Hover effect for the button */
+  button[type="submit"]:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: translateY(-2px); /* Slight upward movement on hover */
+  }
+  
+  /* Focus effect for inputs */
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #4CAF50; /* Green border on focus */
+  }
+  
+  /* Styling for required fields */
+  input:required,
+  textarea:required {
+    border: 1px solid #ff6347; /* Red border for required fields */
+  }
+  
+  /* Styling for overall spacing and layout */
+  form br {
+    margin-bottom: 10px;
+  }
+  
 
 /* Menu Section */
 /* Menu Section */
@@ -672,3 +839,160 @@ footer {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
+/* Responsive Design for Larger Screens */
+@media (min-width: 768px) {
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+    }
+
+    .navbar button {
+        display: none;
+    }
+
+    .hero {
+        text-align: left;
+    }
+
+    .menu-items {
+        flex-direction: row;
+        gap: 2rem;
+    }
+
+    .about-container {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+}
+/* Mobile-Specific Styles */
+/* Mobile-Specific Styles */
+@media (max-width: 768px) {
+    #menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 1001;
+    }
+    #sidebar {
+        display: block; /* or flex */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: #333; /* or any desired color */
+        color: #fff;
+        z-index: 1000; /* Ensure it appears above other elements */
+    }
+    
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px; /* Initially hidden off-screen */
+        width: 250px;
+        height: 100%;
+        background-color: #333;
+        color: white;
+        transition: left 0.3s ease;
+        padding-top: 60px;
+        z-index: 9999;
+    }
+      
+      .sidebar.active {
+        left: 0; /* Sidebar slides in */
+      }
+      
+      .sidebar-links {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+      
+      .sidebar-links li {
+        padding: 10px 15px;
+      }
+      
+      .sidebar-links li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+      }
+      .sidebar-menu {
+        list-style-type: none;
+        padding: 0;
+    }
+    .sidebar-menu li {
+        padding: 10px;
+        text-align: center;
+    }
+    .sidebar-menu li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+    }
+
+    .sidebar-menu li a:hover {
+        background-color: #575757;
+    }
+
+    /* Close button inside the sidebar */
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 30px;
+        color: white;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* Prevent body scrolling when sidebar is active */
+    body.sidebar-active {
+        overflow: hidden;
+    }
+}
+
+/* Desktop and larger screen styles */
+@media (min-width: 769px) {
+    .menu-toggle {
+        display: none; /* Hide hamburger menu on larger screens */
+    }
+
+    .sidebar {
+        display: none; /* Hide the sidebar on larger screens */
+    }
+}
+      
+      /* Close Button inside Sidebar */
+      .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 30px;
+        padding: 10px;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+      }
+      
+      /* Hide sidebar toggle on larger screens */
+      @media (min-width: 768px) {
+        .menu-icon {
+          display: block; /* Menu icon hidden on larger screens */
+        }
+        .sidebar {
+          left: 0; /* Sidebar always visible on larger screens */
+          position: relative;
+        }
+      }

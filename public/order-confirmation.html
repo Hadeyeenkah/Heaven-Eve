@@ -1,0 +1,12 @@
+<!-- Order Confirmation Page (order-confirmation.html) -->
+<h1>Thank you for your order!</h1>
+<p>Your order has been confirmed. Order ID: <span id="order-id"></span></p>
+
+<script>
+    fetch('/api/order-details') // You can fetch this from the backend if needed
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("order-id").textContent = data.orderId;
+        })
+        .catch(error => console.error('Error fetching order details:', error));
+</script>

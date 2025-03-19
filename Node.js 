@@ -1,0 +1,189 @@
+// ----------------------------------------
+// Imports
+// ----------------------------------------
+const express = require("express");
+const nodemailer = require("nodemailer");
+const axios = require("axios");
+const crypto = require("crypto");
+require("dotenv").config(); // Load environment variables
+
+// ----------------------------------------
+// Express Setup
+// ----------------------------------------
+const app = express();
+app.use(express.json()); // Parse JSON data
+
+// ----------------------------------------
+// Nodemailer Setup
+// ----------------------------------------
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER, // Admin email
+        pass: process.env.EMAIL_PASS, // Email password (use App Passwords for security)
+    },
+});
+
+// ----------------------------------------
+// Save Order to Database (Placeholder)
+// ----------------------------------------
+const saveOrderToDatabase = async (orderData) => {
+    try {
+        // Replace with actual DB logic
+        console.log("Saving order to database:", orderData);
+    } catch (error) {
+        console.error("Error saving order:", error);
+    }
+};
+
+// ----------------------------------------
+// Send Order Email (Admin & User)
+// ----------------------------------------
+const sendOrderEmail = async (orderData) => {
+    const { name, email, phone, address, city, state, zip, country, paymentMethod, cartItems, totalAmount, paymentReference } = orderData;
+
+    const emailBody = `
+        <h2>New Order Received</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Address:</strong> ${address}, ${city}, ${state}, ${zip}, ${country}</p>
+        <p><strong>Payment Method:</strong> ${paymentMethod}</p>
+        <p><strong>Transaction Reference:</strong> ${paymentReference}</p>
+        <h3>Cart Items:</h3>
+        <ul>
+            ${cartItems
+                .map((item) => `<li>${item.name} - ₦${item.price} x ${item.quantity}</li>`)
+                .join("")}
+        </ul>
+        <h3>Total Amount: ₦${totalAmount}</h3>
+    `;
+
+    const adminMailOptions = {
+        from: process.env.EMAIL_USER,
+        to: process.env.ADMIN_EMAIL, // Admin email
+        subject: "New Order Notification",
+        html: emailBody,
+    };
+
+    const userMailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email, // Send confirmation to the user
+        subject: "Order Confirmation",
+        html: `<p>Dear ${name},</p>
+               <p>Thank you for your order. Your payment was successful.</p>
+               ${emailBody}`,
+    };
+
+    try {
+        await transporter.sendMail(adminMailOptions);
+        await transporter.sendMail(userMailOptions);
+        console.log("✅ Order email sent to admin and user successfully.");
+    } catch (error) {
+        console.error("❌ Error sending order email:", error);
+    }
+};
+
+// ----------------------------------------
+// Paystack Payment Verification
+// ----------------------------------------
+const verifyTransaction = async (reference) => {
+    try {
+        const response = await axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
+            headers: {
+                Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+            },
+        });
+
+        if (response.data.data.status === "success") {
+            console.log("✅ Payment verified:", response.data.data);
+            return response.data.data;
+        } else {
+            console.error("❌ Payment verification failed:", response.data.message);
+            return null;
+        }
+    } catch (error) {
+        console.error("❌ Error verifying transaction:", error);
+        return null;
+    }
+};
+
+// ----------------------------------------
+// Order Submission Endpoint (After Payment Success)
+// ----------------------------------------
+app.post("/submit-order", async (req, res) => {
+    const { paymentReference, ...orderData } = req.body;
+
+    // Verify Payment with Paystack
+    const paymentInfo = await verifyTransaction(paymentReference);
+    if (!paymentInfo) {
+        return res.status(400).json({ message: "Payment verification failed." });
+    }
+
+    // Update orderData with payment details
+    orderData.totalAmount = paymentInfo.amount / 100; // Convert from kobo to Naira
+    orderData.paymentMethod = paymentInfo.channel; // Card, Bank, USSD, etc.
+
+    // Save order in database
+    await saveOrderToDatabase(orderData);
+
+    // Send order to admin and user
+    await sendOrderEmail(orderData);
+
+    res.status(200).json({
+        message: "✅ Order placed successfully!",
+        orderId: `ORD-${Math.floor(Math.random() * 10000)}`,
+    });
+});
+
+// ----------------------------------------
+// Paystack Webhook Listener (For Automatic Payment Updates)
+// ----------------------------------------
+app.post("/webhook/paystack", async (req, res) => {
+    const secret = process.env.PAYSTACK_SECRET_KEY;
+    const hash = crypto.createHmac("sha512", secret).update(JSON.stringify(req.body)).digest("hex");
+
+    if (hash !== req.headers["x-paystack-signature"]) {
+        console.warn("❌ Unauthorized webhook attempt.");
+        return res.status(401).send("Unauthorized");
+    }
+
+    const event = req.body;
+    console.log("⚡ Webhook Event Received:", event.event);
+
+    if (event.event === "charge.success") {
+        const paymentInfo = event.data;
+        const orderData = {
+            name: paymentInfo.customer.first_name || "N/A",
+            email: paymentInfo.customer.email,
+            phone: paymentInfo.customer.phone || "N/A",
+            address: "N/A", // You need to store address separately
+            city: "N/A",
+            state: "N/A",
+            zip: "N/A",
+            country: "N/A",
+            paymentMethod: paymentInfo.channel,
+            cartItems: paymentInfo.metadata?.cartItems || [],
+            totalAmount: paymentInfo.amount / 100, // Convert from kobo
+            paymentReference: paymentInfo.reference,
+        };
+
+        // Save order in database
+        await saveOrderToDatabase(orderData);
+
+        // Notify Admin and User
+        await sendOrderEmail(orderData);
+
+        console.log(`✅ Payment confirmed for ${paymentInfo.customer.email}`);
+    }
+
+    res.sendStatus(200);
+});
+
+// ----------------------------------------
+// Server Setup
+// ----------------------------------------
+const PORT = process.env.PORT || 5500;
+app.listen(PORT, () => {
+    console.log(`🚀 Server is running on port ${PORT}`);
+});

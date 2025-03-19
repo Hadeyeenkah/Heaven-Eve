@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Coffee Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Admin Coffee Menu</h1>
+        
+        <form id="coffeeForm">
+            <input type="text" id="coffeeName" placeholder="Coffee Name" required>
+            <input type="number" id="coffeePrice" placeholder="Price ($)" required>
+            <button type="submit">Add Coffee</button>
+        </form>
+
+        <h2>Current Menu</h2>
+        <table id="coffeeTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Coffee items will be inserted dynamically here -->
+            </tbody>
+        </table>
+    </div>
+    <style>
+        /* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Admin & Menu Container */
+.admin-container, .menu-container {
+    width: 90%;
+    max-width: 600px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, button {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+}
+
+button {
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+th {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+button {
+    background: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+/* Menu Items */
+.menu-item {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+    </style>
+
+    <script>
+        // Load Coffee Menu from Local Storage
+document.addEventListener("DOMContentLoaded", () => {
+    loadMenu();
+    if (document.getElementById("coffeeForm")) {
+        document.getElementById("coffeeForm").addEventListener("submit", addCoffee);
+    }
+});
+
+// Function to Add Coffee
+function addCoffee(event) {
+    event.preventDefault();
+
+    let name = document.getElementById("coffeeName").value;
+    let price = document.getElementById("coffeePrice").value;
+
+    if (name.trim() === "" || price.trim() === "") return;
+
+    let menu = JSON.parse(localStorage.getItem("coffeeMenu")) || [];
+    menu.push({ name, price });
+    localStorage.setItem("coffeeMenu", JSON.stringify(menu));
+
+    document.getElementById("coffeeForm").reset();
+    loadMenu();
+}
+
+// Function to Load Menu
+function loadMenu() {
+    let menu = JSON.parse(localStorage.getItem("coffeeMenu")) || [];
+    
+    // If Admin Page, Load into Table
+    if (document.getElementById("coffeeTable")) {
+        let tableBody = document.querySelector("#coffeeTable tbody");
+        tableBody.innerHTML = "";
+        
+        menu.forEach((item, index) => {
+            let row = `<tr>
+                <td>${item.name}</td>
+                <td>$${item.price}</td>
+                <td>
+                    <button onclick="deleteCoffee(${index})">❌ Delete</button>
+                </td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // If Menu Page, Display List
+    if (document.getElementById("menuList")) {
+        let menuList = document.getElementById("menuList");
+        menuList.innerHTML = "";
+        
+        menu.forEach((item) => {
+            let coffeeCard = `<div class="menu-item">
+                <h3>${item.name}</h3>
+                <p>Price: $${item.price}</p>
+            </div>`;
+            menuList.innerHTML += coffeeCard;
+        });
+    }
+}
+
+// Function to Delete Coffee Item
+function deleteCoffee(index) {
+    let menu = JSON.parse(localStorage.getItem("coffeeMenu")) || [];
+    menu.splice(index, 1);
+    localStorage.setItem("coffeeMenu", JSON.stringify(menu));
+    loadMenu();
+}
+
+    </script>
+</body>
+</html>
