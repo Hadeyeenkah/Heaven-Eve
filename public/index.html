@@ -5,37 +5,547 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Heaven and Eve Cafe</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 90vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 60px;
+            animation: slideBackground 15s infinite;
+        }
+
+        @keyframes slideBackground {
+            0% { background-image: url('images/cafe6.jpeg'); }
+            33% { background-image: url('images/cafe4.jpeg'); }
+            66% { background-image: url('images/cafe3.jpeg'); }
+            100% { background-image: url('images/cafe6.jpeg'); }
+        }
+
+        /* Logo Styling */
+        .logo-link {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 10;
+        }
+
+        .logo {
+            width: 80px;
+            height: auto;
+        }
+
+        /* Login Link Styling */
+        .track-order-link {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 10;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, #4b2e2a, #6e4b42);
+            padding: 8px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .track-order-link:hover {
+            background: linear-gradient(135deg, #6e4b42, #8a5e52);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .admin-icon {
+            font-size: 16px;
+        }
+
+        /* Hero Content */
+        .hero-content {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 40px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            max-width: 80%;
+            margin: auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            text-transform: capitalize;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            animation: textFade 6s ease-in-out infinite;
+        }
+
+        @keyframes textFade {
+            0%, 100% { opacity: 0; transform: translateY(-20px); }
+            20%, 80% { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            opacity: 0.8;
+            max-width: 80%;
+            margin: 20px auto;
+        }
+
+        /* Button Styling */
+        .btn {
+            display: inline-block;
+            background-color: #4b2e2a;
+            color: white;
+            padding: 20px 50px;
+            border-radius: 25px;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            animation: pulse 1.5s infinite;
+            position: relative;
+        }
+
+        .btn:hover {
+            background-color: #6e4b42;
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 5%;
+            background: #fff;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            color: #4b2e2a;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 30px;
+            background: #f5ecdc;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #4b2e2a;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #4b2e2a;
+            margin-bottom: 10px;
+        }
+
+        /* Menu Preview Section */
+        .menu-preview {
+            padding: 60px 5%;
+            background: #f9f9f9;
+        }
+
+        .menu-preview h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #4b2e2a;
+            margin-bottom: 40px;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .menu-item {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .menu-item h3 {
+            padding: 15px;
+            color: #4b2e2a;
+            font-size: 1.3rem;
+        }
+
+        .menu-item p {
+            padding: 0 15px 15px;
+            color: #6e4b42;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .view-full-menu {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* About Section */
+        .about {
+            position: relative;
+            padding: 80px 20px;
+            color: #fff;
+            background: #181313;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            animation: backgroundSlide 15s infinite;
+        }
+
+        @keyframes backgroundSlide {
+            0% { background-image: url('images/cafe3.jpeg'); }
+            50% { background-image: url('images/cafe4.jpeg'); }
+            100% { background-image: url('images/cafe5.jpeg'); }
+        }
+
+        .about-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            gap: 40px;
+        }
+
+        .about-text {
+            flex: 1;
+            max-width: 600px;
+            z-index: 3;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .about h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .testimonials {
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .testimonials blockquote {
+            font-size: 1rem;
+            font-style: italic;
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 3px solid #FFD700;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #481d04;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 30px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #682d03;
+            transform: translateY(-3px);
+        }
+
+        .about-image {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            animation: slideImage 10s linear infinite;
+        }
+
+        @keyframes slideImage {
+            0%, 100% { opacity: 0; }
+            25%, 75% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 20px;
+        }
+
+        .social-icon {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: #FFD700;
+            color: #481d04;
+            transform: translateY(-3px);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 60px 5%;
+            background: #fff;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #4b2e2a;
+            margin-bottom: 40px;
+        }
+
+        .contact form {
+            width: 100%;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact label {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .contact input[type="text"],
+        .contact input[type="email"],
+        .contact textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .contact input:focus,
+        .contact textarea:focus {
+            border-color: #4b2e2a;
+            outline: none;
+        }
+
+        .contact button {
+            width: 100%;
+            padding: 15px;
+            background-color: #4b2e2a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact button:hover {
+            background-color: #6e4b42;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: #4b2e2a;
+            color: #fff;
+            padding: 30px 5%;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-container {
+                flex-direction: column;
+            }
+
+            .about-text {
+                text-align: center;
+            }
+
+            .about h2 {
+                font-size: 2rem;
+            }
+
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Logo at the top left --
-
-    <!-- Hero Section -->
     <!-- Hero Section -->
     <section class="hero" id="home" role="banner">
-        <!-- Logo at the top right -->
-        <a href="#" class="logo-link">
+        <!-- Logo at the top left -->
+        <a href="index.html" class="logo-link">
             <img src="images/logo.png" alt="Heaven and Eve Cafe Logo" class="logo">
         </a>
-        <a href="adminLogin.html" class="track-order-link">
-            <div style="text-align: center;">
-                <i class="fas fa-user-shield admin-icon"></i>
-                <span style="display: block; font-size: 14px; margin-top: 5px;">Admin</span>
-            </div>
-            
+        
+        <!-- Login Link at the top right -->
+        <a href="login.html" class="track-order-link">
+            <i class="fas fa-sign-in-alt admin-icon"></i>
+            <span>Login</span>
         </a>
         
-        
-        </a>
         <div class="hero-content">
             <h1>Welcome to Heaven & Eve Coffee Cafe</h1>
             <p>Your favorite place for delicious coffee and cozy ambiance</p>
-            <a href="login.html" class="btn" id="order-menu-btn">Order Menu</a>
+            <a href="menu.html" class="btn">Order Menu</a>
         </div>
-        
-        
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Why Choose Us?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-coffee"></i></div>
+                <h3>Premium Coffee</h3>
+                <p>Expertly crafted from the finest beans</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                <h3>Fast Service</h3>
+                <p>Quick ordering and delivery</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-heart"></i></div>
+                <h3>Made with Love</h3>
+                <p>Every item prepared with care</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                <h3>Fresh Ingredients</h3>
+                <p>Only the best quality products</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-preview" id="menu" role="region" aria-labelledby="menu-heading">
+        <h2 id="menu-heading">Our Menu</h2>
+        <div class="menu-items" id="homepage-menu-items">
+            <!-- Menu items will be dynamically loaded -->
+        </div>
+        <div class="view-full-menu">
+            <a href="menu.html" class="btn">View Full Menu</a>
+        </div>
     </section>
 
     <!-- About Section -->
@@ -57,31 +567,9 @@
             </div>
         </div>
         <div class="social-links">
-            <a href="#" class="social-icon" aria-label="Facebook">Facebook</a>
-            <a href="#" class="social-icon" aria-label="Instagram">Instagram</a>
-            <a href="#" class="social-icon" aria-label="Twitter">Twitter</a>
-        </div>
-    </section>
-
-    <!-- Menu Section -->
-    <section class="menu" id="menu" role="region" aria-labelledby="menu-heading">
-        <h2 id="menu-heading">Our Menu</h2>
-        <div class="menu-items">
-            <div class="menu-item">
-                <img src="images/coffee.jpg" alt="A cup of coffee">
-                <h3>Coffee</h3>
-                <p>#4000</p>
-            </div>
-            <div class="menu-item">
-                <img src="images/cake.jpg" alt="A slice of cake">
-                <h3>Cake</h3>
-                <p>#5,000</p>
-            </div>
-            <div class="menu-item">
-                <img src="images/tea.jpg" alt="A cup of tea">
-                <h3>Tea</h3>
-                <p>#4,500</p>
-            </div>
+            <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i> Twitter</a>
         </div>
     </section>
 
@@ -91,37 +579,83 @@
             <h2 id="contact-heading">Contact Us</h2>
             <form action="/contact" method="POST">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required><br><br>
+                <input type="text" id="name" name="name" required>
             
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required><br><br>
+                <input type="email" id="email" name="email" required>
             
                 <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea><br><br>
+                <textarea id="message" name="message" rows="5" required></textarea>
             
-                <button type="submit">Send</button>
-              </form>
-            
+                <button type="submit">Send Message</button>
+            </form>
         </div>
     </section>
-    
 
     <!-- Footer -->
     <footer role="contentinfo">
         <p>&copy; 2025 Heaven and Eve Cafe. All rights reserved.</p>
     </footer>
 
-    <!-- Subscription Modal -->
-    <div class="modal" id="subscriptionModal" role="dialog" aria-labelledby="subscription-heading" aria-hidden="true">
-        <div class="modal-content">
-            <button class="close" id="closeModal" aria-label="Close Modal">&times;</button>
-            <h2 id="subscription-heading">Subscription Required</h2>
-            <p>You need to subscribe to access the Menu. Would you like to subscribe now?</p>
-            <a href="/subscribe" id="subscribeButton">Go to Subscription</a>
-            <button id="cancelButton">Cancel</button>
-        </div>
-    </div>
-    
-    <script src="script.js"></script>
+    <script>
+        // Load menu items on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHomepageMenuItems();
+        });
+
+        // Load menu items from localStorage
+        function loadHomepageMenuItems() {
+            const menuItems = JSON.parse(localStorage.getItem('adminMenuItems')) || [];
+            const menuContainer = document.getElementById('homepage-menu-items');
+            
+            if (menuItems.length === 0) {
+                // Show default items if no items in localStorage
+                menuContainer.innerHTML = `
+                    <div class="menu-item" onclick="window.location.href='menu.html'">
+                        <img src="images/coffee.jpg" alt="A cup of coffee">
+                        <h3>Coffee</h3>
+                        <p>₦4,000</p>
+                    </div>
+                    <div class="menu-item" onclick="window.location.href='menu.html'">
+                        <img src="images/cake.jpg" alt="A slice of cake">
+                        <h3>Cake</h3>
+                        <p>₦5,000</p>
+                    </div>
+                    <div class="menu-item" onclick="window.location.href='menu.html'">
+                        <img src="images/tea.jpg" alt="A cup of tea">
+                        <h3>Tea</h3>
+                        <p>₦4,500</p>
+                    </div>
+                    <div class="menu-item" onclick="window.location.href='menu.html'">
+                        <img src="images/starter1.jpg" alt="Espresso">
+                        <h3>Espresso</h3>
+                        <p>₦3,500</p>
+                    </div>
+                    <div class="menu-item" onclick="window.location.href='menu.html'">
+                        <img src="images/starter2.jpg" alt="Latte">
+                        <h3>Latte Macchiato</h3>
+                        <p>₦3,500</p>
+                    </div>
+                    <div class="menu-item" onclick="window.location.href='menu.html'">
+                        <img src="images/Cappuccino.jpg" alt="Cappuccino">
+                        <h3>Cappuccino</h3>
+                        <p>₦3,500</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Show only first 6 items
+            const displayItems = menuItems.slice(0, 6);
+            
+            menuContainer.innerHTML = displayItems.map(item => `
+                <div class="menu-item" onclick="window.location.href='menu.html'">
+                    <img src="${item.image}" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <p>₦${item.smallPrice.toLocaleString()}</p>
+                </div>
+            `).join('');
+        }
+    </script>
 </body>
 </html>

@@ -3,344 +3,1072 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Responsive Menu Layout">
-    <title>Menu Layout</title>
-    <link href="menu.css" rel="stylesheet">
+    <title>Menu - Heaven & Eve Cafe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f9f9f9;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #4b2e2a, #6e4b42);
+            color: white;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-icon img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Menu Section */
+        .menu {
+            padding: 40px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .menu-title {
+            text-align: center;
+            color: #4b2e2a;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .menu-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, #4b2e2a, #FFD700);
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .category-button {
+            padding: 12px 30px;
+            background: white;
+            border: 2px solid #4b2e2a;
+            color: #4b2e2a;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .category-button:hover,
+        .category-button.active {
+            background: #4b2e2a;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(75, 46, 42, 0.3);
+        }
+
+        /* Menu Items Grid */
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .menu-item-content {
+            padding: 20px;
+        }
+
+        .menu-item h3 {
+            color: #4b2e2a;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .menu-item p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .price {
+            color: #28a745;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 15px 0;
+            display: block;
+        }
+
+        .size-selection {
+            margin: 15px 0;
+        }
+
+        .size-selection label {
+            display: block;
+            color: #4b2e2a;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .size-select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .size-select:focus {
+            outline: none;
+            border-color: #4b2e2a;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #4b2e2a, #6e4b42);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(75, 46, 42, 0.4);
+        }
+
+        /* Cart Popup */
+        .cart-popup {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .cart-popup.show {
+            right: 0;
+        }
+
+        .cart-popup-header {
+            background: #4b2e2a;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-cart:hover {
+            transform: rotate(90deg);
+        }
+
+        .cart-popup-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-items-list {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-item span {
+            color: #4b2e2a;
+        }
+
+        .remove-item {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .remove-item:hover {
+            background: #c82333;
+        }
+
+        .cart-checkout-info {
+            border-top: 2px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4b2e2a;
+            margin-bottom: 20px;
+        }
+
+        .checkout-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Checkout Form */
+        .cart-checkout-form-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            padding: 20px;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .cart-checkout-form-container.show {
+            transform: translateX(0);
+        }
+
+        .cart-checkout-form-container h3 {
+            color: #4b2e2a;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: #4b2e2a;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateX(-5px);
+        }
+
+        .cart-checkout-form-container input,
+        .cart-checkout-form-container textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .cart-checkout-form-container input:focus,
+        .cart-checkout-form-container textarea:focus {
+            outline: none;
+            border-color: #4b2e2a;
+        }
+
+        /* Payment Details Section */
+        .payment-details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            padding: 20px;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .payment-details.show {
+            transform: translateX(0);
+        }
+
+        .payment-details h3 {
+            color: #4b2e2a;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .account-info {
+            background: linear-gradient(135deg, #4b2e2a, #6e4b42);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .account-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .account-number {
+            background: white;
+            color: #4b2e2a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .copy-btn {
+            background: #4b2e2a;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #6e4b42;
+        }
+
+        .bank-name {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .account-name {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .payment-instructions {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .payment-instructions p {
+            color: #856404;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .payment-instructions p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Order Tracking Modal */
+        .tracking-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tracking-modal.show {
+            display: flex;
+        }
+
+        .tracking-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .tracking-content h2 {
+            color: #4b2e2a;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .tracking-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .tracking-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            opacity: 0.5;
+        }
+
+        .tracking-step.active {
+            opacity: 1;
+            background: #e8f5e9;
+            border-left: 4px solid #28a745;
+        }
+
+        .tracking-step i {
+            font-size: 2rem;
+            color: #4b2e2a;
+        }
+
+        .tracking-step-info h4 {
+            color: #4b2e2a;
+            margin-bottom: 5px;
+        }
+
+        .tracking-step-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .close-tracking {
+            width: 100%;
+            padding: 12px;
+            background: #4b2e2a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #4b2e2a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cart-popup {
+                width: 100%;
+                right: -100%;
+            }
+
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+
+            .categories {
+                flex-direction: column;
+            }
+
+            .category-button {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-
-    <!-- Header Section -->
+    <!-- Header -->
     <header>
         <div class="logo">
             <img src="images/logo.png" alt="Logo" class="logo-img">
             <span>Heaven & Eve</span>
         </div>
-        <div class="cart-icon" aria-label="Cart">
-            <img src="images/cart.png" alt="Cart Icon">
-            <span class="cart-count" aria-live="polite">0</span>
+        <div class="cart-icon" onclick="toggleCart()">
+            <img src="images/cart.png" alt="Cart">
+            <span class="cart-count">0</span>
         </div>
     </header>
 
-   <!-- Cart Popup -->
-<div class="cart-popup" aria-hidden="true">
-    <div class="cart-popup-header">
-        <h2>Your Cart</h2>
-        <button class="close-cart" aria-label="Close Cart">&times;</button>
-    </div>
-
-    <!-- Cart Body -->
-    <div class="cart-popup-body">
-        <div class="cart-items-list">
-            <!-- Dynamic cart items will be inserted here -->
-        </div>
-        <div class="cart-checkout-info">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cart-total-price">$100.00</span> <!-- Update dynamically -->
-            </div>
-            <div class="cart-checkout-message">
-                <p>Ready to checkout? Click below to proceed with your purchase.</p>
-            </div>
-            <button class="checkout-button" id="checkout-btn">Proceed to Checkout</button>
-        </div>
-    </div>
-
-    <!-- Checkout Form (Initially Hidden) -->
-    <div class="cart-checkout-form-container">
-        <form id="checkout-form">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <input type="text" name="phone" placeholder="Phone Number" required>
-            <textarea name="address" placeholder="Delivery Address" required></textarea>
-            
-            <button type="submit" class="checkout-button">Pay with Paystack</button>
-        </form>
-    </div>
-</div>
-
-  
-    <!-- Order Confirmation -->
-     <div class="overlay"></div>
-    <div class="cart-order-confirmation hidden" aria-hidden="true">
-      <h3>Order Confirmation</h3>
-      <p>Your order has been placed successfully! Order ID: <span id="order-id"></span></p>
-      <p>A confirmation email will be sent to your email address.</p>
-      <button class="close-confirmation" id="close-confirmation">Close</button>
-    </div>
-  </div>
-
-
     <!-- Menu Section -->
     <section class="menu">
-        <h1 class="menu-title">Our Menu</h1>
+        <h1 class="menu-title">Our Delicious Menu</h1>
 
         <!-- Categories -->
-        <div class="categories" aria-label="Menu Categories">
-            <button class="category-button active" data-category="all" aria-pressed="true">ALL</button>
-            <button class="category-button" data-category="starters" aria-pressed="false">COFFEE</button>
-            <button class="category-button" data-category="mains" aria-pressed="false">MILKSHAKE</button>
-            <button class="category-button" data-category="desserts" aria-pressed="false">FRUITS & PARFAIT</button>
-            <button class="category-button" data-category="drinks" aria-pressed="false">TEA</button>
-            <button class="category-button" data-category="popsicle" aria-pressed="false">POPSICLE</button>
+        <div class="categories">
+            <button class="category-button active" data-category="all">ALL</button>
+            <button class="category-button" data-category="starters">COFFEE</button>
+            <button class="category-button" data-category="mains">MILKSHAKE</button>
+            <button class="category-button" data-category="desserts">FRUITS & PARFAIT</button>
+            <button class="category-button" data-category="drinks">TEA</button>
+            <button class="category-button" data-category="popsicle">POPSICLE</button>
         </div>
 
         <!-- Menu Items -->
-        <div class="menu-items">
-            <!-- Starters -->
-            <article class="menu-item" data-category="starters">
-                <img src="images/starter1.jpg" alt="Garlic Bread">
-                <h3>Espresso</h3>
-                <p>Warm, crispy bread with a garlic butter spread.</p>
-                <p class="price" data-small-price="3500" data-big-price="4500">₦3,500</p>
-                
-                <!-- Size Selection -->
-                <label for="size-starter1">Choose Size:</label>
-                <select id="size-starter1" class="size-select">
-                    <option value="small" selected>Small - ₦3,500</option>
-                    <option value="big">Big - ₦4,500</option>
-                </select>
-                
-                <button class="add-to-cart">Add to Cart</button>
-            </article>
-            
-            
-            <article class="menu-item" data-category="starters">
-                <img src="images/starter2.jpg" alt="Garlic Bread">
-                <h3>Latte Macchiato</h3>
-                <p>Warm, crispy bread with a garlic butter spread.</p>
-                <p class="price" data-small-price="3500" data-big-price="4500">₦3,500</p>
-                
-                <!-- Size Selection -->
-                <label for="size-starter1">Choose Size:</label>
-                <select id="size-starter1" class="size-select">
-                    <option value="small" selected>Small - ₦3,500</option>
-                    <option value="big">Big - ₦4,500</option>
-                </select>
-                
-                <button class="add-to-cart">Add to Cart</button>
-            </article>
-            
-            <article class="menu-item" data-category="starters">
-                <img src="images/dippo.jpg" alt="Garlic Bread">
-                <h3>Doppio</h3>
-                <p>Warm, crispy bread with a garlic butter spread.</p>
-                <p class="price" data-small-price="3500" data-big-price="4500">₦3,500</p>
-                
-                <!-- Size Selection -->
-                <label for="size-starter1">Choose Size:</label>
-                <select id="size-starter1" class="size-select">
-                    <option value="small" selected>Small - ₦3,500</option>
-                    <option value="big">Big - ₦4,500</option>
-                </select>
-                
-                <button class="add-to-cart">Add to Cart</button>
-            </article>
-            <article class="menu-item" data-category="starters">
-                <img src="images/Espresso Macchiato.jpg" alt="Garlic Bread">
-                <h3>Espresso Macchiato</h3>
-                <p>Warm, crispy bread with a garlic butter spread.</p>
-                <p class="price" data-small-price="3500" data-big-price="4500">₦3,500</p>
-                
-                <!-- Size Selection -->
-                <label for="size-starter1">Choose Size:</label>
-                <select id="size-starter1" class="size-select">
-                    <option value="small" selected>Small - ₦3,500</option>
-                    <option value="big">Big - ₦4,500</option>
-                </select>
-                
-                <button class="add-to-cart">Add to Cart</button>
-            </article>
-
-            <!-- Other categories (existing items) -->
-            <article class="menu-item" data-category="starters">
-                <img src="images/Coffee Latte.jpg" alt="Garlic Bread">
-                <h3>Coffee Latte</h3>
-                <p>Warm, crispy bread with a garlic butter spread.</p>
-                <p class="price" data-small-price="3500" data-big-price="4500">₦3,500</p>
-                
-                <!-- Size Selection -->
-                <label for="size-starter1">Choose Size:</label>
-                <select id="size-starter1" class="size-select">
-                    <option value="small" selected>Small - ₦3,500</option>
-                    <option value="big">Big - ₦4,500</option>
-                </select>
-                
-                <button class="add-to-cart">Add to Cart</button>
-            </article>
-            <article class="menu-item" data-category="starters">
-                <img src="images/flatwhite.jpg" alt="Garlic Bread">
-                <h3>Flat White</h3>
-                <p>Warm, crispy bread with a garlic butter spread.</p>
-                <p class="price" data-small-price="3000" data-big-price="4000">₦3,000</p>
-                
-                <!-- Size Selection -->
-                <label for="size-starter1">Choose Size:</label>
-                <select id="size-starter1" class="size-select">
-                    <option value="small" selected>Small - ₦3,000</option>
-                    <option value="big">Big - ₦4,000</option>
-                </select>
-                
-                <button class="add-to-cart">Add to Cart</button>
-            </article>
-            <article class="menu-item" data-category="starters">
-                <img src="images/Cappuccino.jpg" alt="Garlic Bread">
-                <h3>Cappuccino</h3>
-                <p>Warm, crispy bread with a garlic butter spread.</p>
-                <p class="price" data-small-price="3500" data-big-price="4500">₦3,500</p>
-                
-                <!-- Size Selection -->
-                <label for="size-starter1">Choose Size:</label>
-                <select id="size-starter1" class="size-select">
-                    <option value="small" selected>Small - ₦3,500</option>
-                    <option value="big">Big - ₦4,500</option>
-                </select>
-                
-                <button class="add-to-cart">Add to Cart</button>
-            </article>
-            <!-- Milkshakes -->
-            <article class="menu-item" data-category="mains">
-                <img src="images/starter1.jpg" alt="Garlic Bread">
-                <h3>Banana Milkshake</h3>
-                <p class="price" data-small-price="6500" data-big-price="4500">₦6,500</p>
-                <button class="add-to-cart">Add to Cart</button>
-            </article>
-
-<article class="menu-item" data-category="mains">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Oreo Milkshake</h3>
-    <p class="price" data-small-price="7000" data-big-price="4500">₦7,000</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="mains">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Strewberry Milkshake</h3>
-    <p class="price" data-small-price="6500" data-big-price="4500">₦6,500</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="mains">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Eve's Apple Milkshake</h3>
-    <p class="price" data-small-price="9000" data-big-price="4500">₦9,000</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="mains">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Vanilla Milkshake</h3>
-    <p class="price" data-small-price="7000" data-big-price="4500">₦7,000</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="desserts">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Sweet Mint and  Fennel (Digest Tea)</h3>
-    <p class="price" data-small-price="4000" data-big-price="4500">₦4,000</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="desserts">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Sweet Mint and  Fennel (Digest Tea)</h3>
-    <p class="price" data-small-price="4000" data-big-price="4500">₦4,000</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="desserts">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Sweet Mint and  Fennel (Digest Tea)</h3>
-    <p class="price" data-small-price="4000" data-big-price="4500">₦4,000</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-<article class="menu-item" data-category="desserts">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Sweet Mint and  Fennel (Digest Tea)</h3>
-    <p class="price" data-small-price="4000" data-big-price="4500">₦4,000</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="drinks">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Sweet Mint and  Fennel (Digest Tea)</h3>
-    <p class="price" data-small-price="4000" data-big-price="4500">₦4,000</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="drinks">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Sweet Mint and  Fennel (Digest Tea)</h3>
-    <p class="price" data-small-price="4000" data-big-price="4500">₦4,000</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="drinks">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Sweet Mint and  Fennel (Digest Tea)</h3>
-    <p class="price" data-small-price="4000" data-big-price="4500">₦4,000</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="drinks">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Strawberry Sensation Black Tea</h3>
-    <p class="price" data-small-price="4000" data-big-price="4500">₦4,000</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="drinks">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Fruit and Herb (Infusion detox Tea)</h3>
-    <p class="price" data-small-price="4000" data-big-price="4500">₦4,000</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="popsicle">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Lemon and Lime Twist Black Tea</h3>
-    <p class="price" data-small-price="4000" data-big-price="4500">₦4,000</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="popsicle">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Chocolate Caramel</h3>
-    <p class="price" data-small-price="1500" data-big-price="4500">₦1,500</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-<article class="menu-item" data-category="popsicle">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Banana, Vanilla Ice-Cream, Honey</h3>
-    <p class="price" data-small-price="1500" data-big-price="4500">₦1,500</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-<article class="menu-item" data-category="popsicle">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Oreo, Honey, Chocolate Ice-Cream</h3>
-    <p class="price" data-small-price="1800" data-big-price="4500">₦1,800</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-<article class="menu-item" data-category="popsicle">
-    <img src="images/starter1.jpg" alt="Garlic Bread">
-    <h3>Espresso</h3>
-    <p>Warm, crispy bread with a garlic butter spread.</p>
-    <p class="price" data-small-price="3500" data-big-price="4500">₦3,500</p>
-    <button class="add-to-cart">Add to Cart</button>
-</article>
-
-
+        <div class="menu-items" id="menu-items-container">
+            <!-- Menu items will be dynamically loaded here -->
         </div>
     </section>
 
-    <!-- Footer Section -->
+    <!-- Cart Popup -->
+    <div class="cart-popup">
+        <div class="cart-popup-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-popup-body">
+            <div class="cart-items-list"></div>
+            <div class="cart-checkout-info" style="display: none;">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total-price">₦0</span>
+                </div>
+                <button class="checkout-button" id="checkout-btn">Proceed to Checkout</button>
+            </div>
+        </div>
+        
+        <!-- Checkout Form -->
+        <div class="cart-checkout-form-container">
+            <h3>
+                <button class="back-button" onclick="backToCart()"><i class="fas fa-arrow-left"></i></button>
+                Delivery Information
+            </h3>
+            <form id="checkout-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <input type="tel" name="phone" placeholder="Phone Number" required>
+                <textarea name="address" placeholder="Delivery Address" rows="3" required></textarea>
+                <button type="submit" class="checkout-button">Continue to Payment</button>
+            </form>
+        </div>
+
+        <!-- Payment Details -->
+        <div class="payment-details">
+            <h3>
+                <button class="back-button" onclick="backToForm()"><i class="fas fa-arrow-left"></i></button>
+                Payment Details
+            </h3>
+            
+            <div class="account-info">
+                <h4><i class="fas fa-university"></i> Transfer to this account</h4>
+                <div class="account-number">
+                    <span id="account-number">0123456789</span>
+                    <button type="button" class="copy-btn" onclick="copyAccountNumber()">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                <div class="bank-name">Bank Name: <strong>First Bank</strong></div>
+                <div class="account-name">Account Name: <strong>Heaven & Eve Cafe</strong></div>
+            </div>
+
+            <div class="payment-instructions">
+                <p><strong><i class="fas fa-info-circle"></i> Payment Instructions:</strong></p>
+                <p>1. Transfer the exact amount shown above to the account number</p>
+                <p>2. After payment, click "Complete Order" below</p>
+                <p>3. Your order will be confirmed once payment is verified</p>
+            </div>
+
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="color: #666;">Order Total:</span>
+                    <span style="color: #4b2e2a; font-weight: bold; font-size: 1.2rem;" id="payment-total">₦0</span>
+                </div>
+            </div>
+
+            <button class="checkout-button" onclick="completeOrder()">
+                <i class="fas fa-check-circle"></i> Complete Order
+            </button>
+        </div>
+    </div>
+
+    <!-- Order Tracking Modal -->
+    <div class="tracking-modal">
+        <div class="tracking-content">
+            <h2><i class="fas fa-receipt"></i> Order Tracking</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">Order ID: <strong>#<span id="order-id-display">12345</span></strong></p>
+            <div class="tracking-steps">
+                <div class="tracking-step" data-status="pending-payment">
+                    <i class="fas fa-clock"></i>
+                    <div class="tracking-step-info">
+                        <h4>Pending Payment</h4>
+                        <p>Waiting for payment confirmation</p>
+                    </div>
+                </div>
+                <div class="tracking-step" data-status="payment-received">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="tracking-step-info">
+                        <h4>Payment Confirmed</h4>
+                        <p>Payment has been verified</p>
+                    </div>
+                </div>
+                <div class="tracking-step" data-status="preparing">
+                    <i class="fas fa-utensils"></i>
+                    <div class="tracking-step-info">
+                        <h4>Preparing</h4>
+                        <p>Your order is being prepared</p>
+                    </div>
+                </div>
+                <div class="tracking-step" data-status="ready">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="tracking-step-info">
+                        <h4>Ready for Pickup</h4>
+                        <p>Your order is ready!</p>
+                    </div>
+                </div>
+                <div class="tracking-step" data-status="delivery">
+                    <i class="fas fa-shipping-fast"></i>
+                    <div class="tracking-step-info">
+                        <h4>Out for Delivery</h4>
+                        <p>On the way to you</p>
+                    </div>
+                </div>
+            </div>
+            <button class="close-tracking" onclick="closeTracking()">Close</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Heaven & Eve. All Rights Reserved.</p>
+        <p>&copy; 2025 Heaven & Eve Cafe. All Rights Reserved.</p>
     </footer>
 
+    <script>
+        let cart = [];
+        let menuItems = [];
+        let currentOrderId = null;
+        let customerInfo = {};
 
-    <script src="https://js.paystack.co/v1/inline.js"></script>
-    <script src="menu.js"></script>
+        // Load menu items from localStorage
+        function loadMenuItems() {
+            const adminItems = JSON.parse(localStorage.getItem('adminMenuItems')) || [];
+            menuItems = adminItems;
+            displayMenuItems('all');
+        }
 
+        // Display menu items
+        function displayMenuItems(category) {
+            const container = document.getElementById('menu-items-container');
+            const filteredItems = category === 'all' 
+                ? menuItems 
+                : menuItems.filter(item => item.category === category);
+
+            if (filteredItems.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">No items in this category yet</p>';
+                return;
+            }
+
+            container.innerHTML = filteredItems.map(item => `
+                <div class="menu-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="menu-item-content">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        ${item.bigPrice ? `
+                            <div class="size-selection">
+                                <label>Select Size:</label>
+                                <select class="size-select" id="size-${item.id}">
+                                    <option value="small">Small - ₦${item.smallPrice.toLocaleString()}</option>
+                                    <option value="big">Big - ₦${item.bigPrice.toLocaleString()}</option>
+                                </select>
+                            </div>
+                        ` : `<span class="price">₦${item.smallPrice.toLocaleString()}</span>`}
+                        <button class="add-to-cart" onclick="addToCart(${item.id})">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Category filtering
+        document.querySelectorAll('.category-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                displayMenuItems(btn.dataset.category);
+            });
+        });
+
+        // Add to cart
+        function addToCart(itemId) {
+            const item = menuItems.find(i => i.id === itemId);
+            if (!item) return;
+
+            let size = 'small';
+            let price = item.smallPrice;
+
+            if (item.bigPrice) {
+                const sizeSelect = document.getElementById(`size-${itemId}`);
+                size = sizeSelect.value;
+                price = size === 'big' ? item.bigPrice : item.smallPrice;
+            }
+
+            const existingItem = cart.find(c => c.id === itemId && c.size === size);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    id: itemId,
+                    name: item.name,
+                    size: size,
+                    price: price,
+                    quantity: 1
+                });
+            }
+
+            updateCart();
+            showNotification('Item added to cart!');
+        }
+
+        // Update cart display
+        function updateCart() {
+            const cartCount = document.querySelector('.cart-count');
+            const cartItemsList = document.querySelector('.cart-items-list');
+            const cartCheckoutInfo = document.querySelector('.cart-checkout-info');
+            const totalPrice = document.getElementById('cart-total-price');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            if (cart.length === 0) {
+                cartItemsList.innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">Your cart is empty</p>';
+                cartCheckoutInfo.style.display = 'none';
+                return;
+            }
+
+            cartItemsList.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <div>
+                        <strong>${item.name}</strong><br>
+                        <small>Size: ${item.size.charAt(0).toUpperCase() + item.size.slice(1)}</small><br>
+                        <small>₦${item.price.toLocaleString()} x ${item.quantity}</small>
+                    </div>
+                    <button class="remove-item" onclick="removeFromCart(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalPrice.textContent = `₦${total.toLocaleString()}`;
+            cartCheckoutInfo.style.display = 'block';
+        }
+
+        // Remove from cart
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        // Toggle cart
+        function toggleCart() {
+            const cartPopup = document.querySelector('.cart-popup');
+            cartPopup.classList.toggle('show');
+        }
+
+        // Proceed to checkout
+        document.getElementById('checkout-btn').addEventListener('click', () => {
+            document.querySelector('.cart-checkout-form-container').classList.add('show');
+        });
+
+        // Back to cart
+        function backToCart() {
+            document.querySelector('.cart-checkout-form-container').classList.remove('show');
+        }
+
+        // Back to form
+        function backToForm() {
+            document.querySelector('.payment-details').classList.remove('show');
+        }
+
+        // Handle checkout form submission
+        document.getElementById('checkout-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            customerInfo = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                address: formData.get('address')
+            };
+
+            // Calculate total and show payment details
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('payment-total').textContent = `₦${total.toLocaleString()}`;
+
+            // Hide form and show payment details
+            document.querySelector('.cart-checkout-form-container').classList.remove('show');
+            document.querySelector('.payment-details').classList.add('show');
+        });
+
+        // Copy account number
+        function copyAccountNumber() {
+            const accountNumber = document.getElementById('account-number').textContent;
+            navigator.clipboard.writeText(accountNumber).then(() => {
+                showNotification('Account number copied!');
+            });
+        }
+
+        // Complete order
+        function completeOrder() {
+            const orderId = Date.now();
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            const order = {
+                id: orderId,
+                customerName: customerInfo.name,
+                email: customerInfo.email,
+                phone: customerInfo.phone,
+                address: customerInfo.address,
+                items: cart.map(item => ({...item})),
+                total: total,
+                status: 'pending-payment',
+                date: new Date().toISOString()
+            };
+
+            // Save order to localStorage
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            // Set current order ID
+            currentOrderId = orderId;
+
+            // Clear cart
+            cart = [];
+            updateCart();
+
+            // Hide payment details
+            document.querySelector('.payment-details').classList.remove('show');
+
+            // Close cart popup
+            document.querySelector('.cart-popup').classList.remove('show');
+
+            // Reset form
+            document.getElementById('checkout-form').reset();
+
+            // Show tracking modal
+            showTracking(orderId);
+
+            showNotification('Order placed successfully!');
+        }
+
+        // Show tracking modal
+        function showTracking(orderId) {
+            document.getElementById('order-id-display').textContent = orderId;
+            document.querySelector('.tracking-modal').classList.add('show');
+            
+            // Start monitoring order status
+            monitorOrderStatus(orderId);
+        }
+
+        // Monitor order status
+        function monitorOrderStatus(orderId) {
+            const trackingInterval = setInterval(() => {
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                const order = orders.find(o => o.id === orderId);
+
+                if (order) {
+                    updateTrackingSteps(order.status);
+
+                    // Stop monitoring if order is completed
+                    if (order.status === 'completed') {
+                        clearInterval(trackingInterval);
+                    }
+                } else {
+                    clearInterval(trackingInterval);
+                }
+            }, 2000); // Check every 2 seconds
+        }
+
+        // Update tracking steps based on status
+        function updateTrackingSteps(status) {
+            const steps = document.querySelectorAll('.tracking-step');
+            const statusOrder = ['pending-payment', 'payment-received', 'preparing', 'ready', 'delivery'];
+            const currentIndex = statusOrder.indexOf(status);
+
+            steps.forEach((step, index) => {
+                const stepStatus = step.getAttribute('data-status');
+                const stepIndex = statusOrder.indexOf(stepStatus);
+
+                if (stepIndex <= currentIndex) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+
+        // Close tracking
+        function closeTracking() {
+            document.querySelector('.tracking-modal').classList.remove('show');
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #28a745;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Initialize
+        loadMenuItems();
+    </script>
 </body>
 </html>

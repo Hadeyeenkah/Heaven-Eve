@@ -3,71 +3,551 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Shop - Login & Register</title>
-    <link rel="stylesheet" href="login.css">
+    <title>Heaven & Eve Cafe - Login & Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4b2e2a 0%, #6e4b42 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .auth-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .logo-fallback {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #4b2e2a, #6e4b42);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .auth-title {
+            color: #4b2e2a;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .auth-subtitle {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .auth-form-content {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .auth-form-content.hidden {
+            display: none;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            color: #4b2e2a;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #4b2e2a;
+            box-shadow: 0 0 0 3px rgba(75, 46, 42, 0.1);
+        }
+
+        .input-group input::placeholder {
+            color: #aaa;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #666;
+            padding: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-password:hover {
+            color: #4b2e2a;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #4b2e2a, #6e4b42);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(75, 46, 42, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .switch-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+        }
+
+        .switch-link a {
+            color: #4b2e2a;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .switch-link a:hover {
+            color: #6e4b42;
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            animation: shake 0.5s ease;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .success-message {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            color: #155724;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 30px 20px;
+            }
+
+            .auth-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="auth-container">
-        <div class="auth-form">
-            <h2 class="auth-title" id="form-title">Login</h2>
+        <div class="auth-header">
+            <img src="images/logo.png" alt="Heaven and Eve Cafe Logo" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="logo-fallback" style="display: none;">H&E</div>
+            <h2 class="auth-title" id="form-title">Welcome Back</h2>
+            <p class="auth-subtitle" id="form-subtitle">Login to your account</p>
         </div>
+
+        <div class="error-message" id="error-message"></div>
+        <div class="success-message" id="success-message"></div>
 
         <!-- Login Form -->
         <form id="login-form" class="auth-form-content">
             <div class="input-group">
-                <label for="login-email">Email</label>
+                <label for="login-email"><i class="fas fa-envelope"></i> Email</label>
                 <input type="email" id="login-email" name="email" required placeholder="Enter your email" />
             </div>
             <div class="input-group">
-                <label for="login-password">Password</label>
-                <input type="password" id="login-password" name="password" required placeholder="Enter your password" />
-                <button type="button" class="toggle-password" onclick="togglePassword('login-password')">👁️</button>
+                <label for="login-password"><i class="fas fa-lock"></i> Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="login-password" name="password" required placeholder="Enter your password" />
+                    <button type="button" class="toggle-password" onclick="togglePassword('login-password')">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
             </div>
-            <button type="submit" class="btn">Login</button>
+            <button type="submit" class="btn" id="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            
+            <div class="switch-link">
+                <p>Don't have an account? <a href="#" id="switch-to-register">Register here</a></p>
+            </div>
         </form>
-
-        <div class="switch-link">
-            <p>Don't have an account? <a href="registration.html" id="switch-to-register">Register</a></p>
-        </div>
 
         <!-- Registration Form (Hidden initially) -->
         <form id="register-form" class="auth-form-content hidden">
             <div class="input-group">
-                <label for="register-username">Full Name</label>
-                <input type="text" id="register-username" name="name" required placeholder="Enter your full name" />
+                <label for="register-name"><i class="fas fa-user"></i> Full Name</label>
+                <input type="text" id="register-name" name="name" required placeholder="Enter your full name" />
             </div>
             <div class="input-group">
-                <label for="register-email">Email</label>
+                <label for="register-email"><i class="fas fa-envelope"></i> Email</label>
                 <input type="email" id="register-email" name="email" required placeholder="Enter your email" />
             </div>
             <div class="input-group">
-                <label for="register-phone">Phone Number</label>  <!-- Added phone number field -->
+                <label for="register-phone"><i class="fas fa-phone"></i> Phone Number</label>
                 <input type="tel" id="register-phone" name="phone" required placeholder="Enter your phone number" />
             </div>
             <div class="input-group">
-                <label for="register-password">Password</label>
-                <input type="password" id="register-password" name="password" required placeholder="Enter a password" />
-                <button type="button" class="toggle-password" onclick="togglePassword('register-password')">👁️</button>
+                <label for="register-address"><i class="fas fa-map-marker-alt"></i> Address</label>
+                <input type="text" id="register-address" name="address" required placeholder="Enter your address" />
             </div>
             <div class="input-group">
-                <label for="register-confirm-password">Confirm Password</label>
-                <input type="password" id="register-confirm-password" name="confirm_password" required placeholder="Confirm your password" />
-                <button type="button" class="toggle-password" onclick="togglePassword('register-confirm-password')">👁️</button>
+                <label for="register-password"><i class="fas fa-lock"></i> Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="register-password" name="password" required placeholder="Enter a password" />
+                    <button type="button" class="toggle-password" onclick="togglePassword('register-password')">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
             </div>
-            <button type="submit" class="btn">Register</button>
+            <div class="input-group">
+                <label for="register-confirm-password"><i class="fas fa-lock"></i> Confirm Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="register-confirm-password" name="confirm_password" required placeholder="Confirm your password" />
+                    <button type="button" class="toggle-password" onclick="togglePassword('register-confirm-password')">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            <button type="submit" class="btn" id="register-btn">
+                <i class="fas fa-user-plus"></i> Register
+            </button>
+            
             <div class="switch-link">
-                <p>Already have an account? <a href="login.html" id="switch-to-login">Login</a></p>
+                <p>Already have an account? <a href="#" id="switch-to-login">Login here</a></p>
             </div>
         </form>
     </div>
 
     <script>
+        // Configuration - Update this to match your backend URL
+        const API_URL = 'http://localhost:5502/api';
+
+        // Toggle password visibility
         function togglePassword(fieldId) {
             const passwordField = document.getElementById(fieldId);
-            passwordField.type = passwordField.type === "password" ? "text" : "password";
+            const button = passwordField.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = "password";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
         }
-    </script>
 
-    <script src="login.js"></script>
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+            
+            setTimeout(() => {
+                errorDiv.classList.remove('show');
+            }, 5000);
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            const successDiv = document.getElementById('success-message');
+            successDiv.textContent = message;
+            successDiv.classList.add('show');
+            
+            setTimeout(() => {
+                successDiv.classList.remove('show');
+            }, 3000);
+        }
+
+        // Switch between forms
+        document.getElementById('switch-to-register').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('register-form').classList.remove('hidden');
+            document.getElementById('form-title').textContent = 'Create Account';
+            document.getElementById('form-subtitle').textContent = 'Join Heaven & Eve Cafe';
+            document.getElementById('error-message').classList.remove('show');
+            document.getElementById('success-message').classList.remove('show');
+        });
+
+        document.getElementById('switch-to-login').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('register-form').classList.add('hidden');
+            document.getElementById('login-form').classList.remove('hidden');
+            document.getElementById('form-title').textContent = 'Welcome Back';
+            document.getElementById('form-subtitle').textContent = 'Login to your account';
+            document.getElementById('error-message').classList.remove('show');
+            document.getElementById('success-message').classList.remove('show');
+        });
+
+        // Handle login with backend
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const loginBtn = document.getElementById('login-btn');
+
+            // Disable button and show loading
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<span class="loading-spinner"></span> Logging in...';
+
+            try {
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.isAdmin) {
+                        // Admin login
+                        showSuccess('Admin login successful! Redirecting...');
+                        localStorage.setItem('adminToken', data.token);
+                        localStorage.setItem('userRole', 'admin');
+                        setTimeout(() => {
+                            window.location.href = 'Admin.html';
+                        }, 1500);
+                    } else {
+                        // Regular user login
+                        showSuccess('Login successful! Redirecting to menu...');
+                        localStorage.setItem('authToken', data.token);
+                        localStorage.setItem('loggedInUser', JSON.stringify(data.user));
+                        localStorage.setItem('userRole', 'user');
+                        setTimeout(() => {
+                            window.location.href = 'menu.html';
+                        }, 1500);
+                    }
+                } else {
+                    showError(data.message || 'Invalid email or password. Please try again.');
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showError('Unable to connect to server. Please try again later.');
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+            }
+        });
+
+        // Handle registration with backend
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const phone = document.getElementById('register-phone').value;
+            const address = document.getElementById('register-address').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            const registerBtn = document.getElementById('register-btn');
+
+            // Frontend validation
+            if (password !== confirmPassword) {
+                showError('Passwords do not match!');
+                return;
+            }
+
+            if (password.length < 6) {
+                showError('Password must be at least 6 characters long!');
+                return;
+            }
+
+            // Disable button and show loading
+            registerBtn.disabled = true;
+            registerBtn.innerHTML = '<span class="loading-spinner"></span> Registering...';
+
+            try {
+                const response = await fetch(`${API_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        phone,
+                        address,
+                        password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showSuccess('Registration successful! Redirecting to login...');
+                    
+                    // Clear form
+                    document.getElementById('register-form').reset();
+                    
+                    // Switch to login after 2 seconds
+                    setTimeout(() => {
+                        document.getElementById('switch-to-login').click();
+                        registerBtn.disabled = false;
+                        registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> Register';
+                    }, 2000);
+                } else {
+                    showError(data.message || 'Registration failed. Please try again.');
+                    registerBtn.disabled = false;
+                    registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> Register';
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                showError('Unable to connect to server. Please try again later.');
+                registerBtn.disabled = false;
+                registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> Register';
+            }
+        });
+
+        // Check if user is already logged in
+        window.addEventListener('load', () => {
+            const authToken = localStorage.getItem('authToken');
+            const adminToken = localStorage.getItem('adminToken');
+            const userRole = localStorage.getItem('userRole');
+
+            if (adminToken && userRole === 'admin') {
+                // Admin already logged in
+                window.location.href = 'admin.html';
+            } else if (authToken && userRole === 'user') {
+                // User already logged in
+                window.location.href = 'menu.html';
+            }
+        });
+    </script>
 </body>
 </html>
