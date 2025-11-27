@@ -435,6 +435,26 @@
                     body: JSON.stringify({ email, password })
                 });
 
+                // Check if response is ok before parsing JSON
+                if (!response.ok) {
+                    const contentType = response.headers.get('content-type');
+                    let errorMessage = 'Login failed. Please try again.';
+                    
+                    if (contentType && contentType.includes('application/json')) {
+                        const errorData = await response.json();
+                        errorMessage = errorData.message || errorMessage;
+                    } else {
+                        const textError = await response.text();
+                        console.error('Server returned non-JSON response:', textError);
+                        errorMessage = 'Server error. Please check if the backend is running.';
+                    }
+                    
+                    showError(errorMessage);
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+                    return;
+                }
+
                 const data = await response.json();
 
                 if (response.ok) {
@@ -511,6 +531,26 @@
                         password
                     })
                 });
+
+                // Check if response is ok before parsing JSON
+                if (!response.ok) {
+                    const contentType = response.headers.get('content-type');
+                    let errorMessage = 'Registration failed. Please try again.';
+                    
+                    if (contentType && contentType.includes('application/json')) {
+                        const errorData = await response.json();
+                        errorMessage = errorData.message || errorMessage;
+                    } else {
+                        const textError = await response.text();
+                        console.error('Server returned non-JSON response:', textError);
+                        errorMessage = 'Server error. Please check if the backend is running.';
+                    }
+                    
+                    showError(errorMessage);
+                    registerBtn.disabled = false;
+                    registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> Register';
+                    return;
+                }
 
                 const data = await response.json();
 
