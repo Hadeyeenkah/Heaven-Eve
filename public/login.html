@@ -347,8 +347,12 @@
     </div>
 
     <script>
-        // Configuration - Update this to match your backend URL
-        const API_URL = 'http://localhost:5502/api';
+        // ✅ SMART API URL - Works both locally and when deployed
+        const API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:5502/api'  // Local development
+            : '/api';  // Production (uses same domain)
+
+        console.log('Using API URL:', API_URL);
 
         // Toggle password visibility
         function togglePassword(fieldId) {
@@ -439,6 +443,7 @@
                         showSuccess('Admin login successful! Redirecting...');
                         localStorage.setItem('adminToken', data.token);
                         localStorage.setItem('userRole', 'admin');
+                        localStorage.setItem('loggedInUser', JSON.stringify(data.user));
                         setTimeout(() => {
                             window.location.href = 'Admin.html';
                         }, 1500);
@@ -542,7 +547,7 @@
 
             if (adminToken && userRole === 'admin') {
                 // Admin already logged in
-                window.location.href = 'admin.html';
+                window.location.href = 'Admin.html';
             } else if (authToken && userRole === 'user') {
                 // User already logged in
                 window.location.href = 'menu.html';
